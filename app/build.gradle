@@ -16,11 +16,24 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        buildTypes.each {
+            it.buildConfigField 'String', 'API_KEY', YandexTranslateApiKey
+        }
     }
 }
 
 ext {
     supportLibraryVersion = '25.3.1'
+    retrofitVersion = '2.2.0'
+    butterknifeVersion = '8.5.1'
+    daggerVersion = '2.10'
+    rxandroidVersion = '2.0.1'
+    rxjavaVersion = '2.0.8'
+    rxbindingVersion = '2.0.0'
+    timberVersion = '4.5.1'
+    moxyVersion = '1.5.1'
+    hawkVersion = '2.0.1'
 
     espressoVersion = '2.2.2'
     junitVersion = '4.12'
@@ -40,4 +53,35 @@ dependencies {
     compile "com.android.support:design:${supportLibraryVersion}"
     compile "com.android.support:recyclerview-v7:${supportLibraryVersion}"
     compile "com.android.support:support-v4:${supportLibraryVersion}"
+
+    // Networking
+    compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    compile "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
+
+    // Butterknife
+    compile "com.jakewharton:butterknife:${butterknifeVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
+
+    // Dependency injection
+    compile "com.google.dagger:dagger:${daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
+    provided "org.glassfish:javax.annotation:10.0-b28"
+
+    // Rx
+    compile "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}"
+    compile "io.reactivex.rxjava2:rxjava:${rxjavaVersion}"
+    compile "com.jakewharton.rxbinding2:rxbinding:${rxbindingVersion}"
+    compile "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${rxbindingVersion}"
+    compile "com.jakewharton.rxbinding2:rxbinding-support-v4:${rxbindingVersion}"
+
+    // Logging
+    compile "com.jakewharton.timber:timber:${timberVersion}"
+
+    // MVP
+    compile "com.arello-mobile:moxy:${moxyVersion}"
+    compile "com.arello-mobile:moxy-app-compat:${moxyVersion}"
+    annotationProcessor "com.arello-mobile:moxy-compiler:${moxyVersion}"
+
+    // Data
+    compile "com.orhanobut:hawk:${hawkVersion}"
 }
