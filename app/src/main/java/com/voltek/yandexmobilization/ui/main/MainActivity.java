@@ -9,12 +9,19 @@ import com.voltek.yandexmobilization.R;
 import com.voltek.yandexmobilization.TranslatorApp;
 import com.voltek.yandexmobilization.navigation.proxy.Navigator;
 import com.voltek.yandexmobilization.navigation.proxy.NavigatorCommand;
+import com.voltek.yandexmobilization.networking.YandexTranslateAPI;
+
+import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity implements Navigator {
+
+    @Inject
+    YandexTranslateAPI mApi;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
+        TranslatorApp.getNetworkComponent().inject(this);
         setContentView(R.layout.activity_main);
     }
 

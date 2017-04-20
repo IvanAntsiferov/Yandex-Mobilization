@@ -23,6 +23,10 @@ android {
             it.buildConfigField 'String', 'API_KEY', YandexTranslateApiKey
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 ext {

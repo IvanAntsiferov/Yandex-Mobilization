@@ -1,4 +1,4 @@
-package com.voltek.yandexmobilization.di;
+package com.voltek.yandexmobilization.di.module;
 
 import com.voltek.yandexmobilization.networking.YandexTranslateAPI;
 
