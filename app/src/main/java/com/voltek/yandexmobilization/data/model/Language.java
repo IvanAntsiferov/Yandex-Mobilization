@@ -2,20 +2,20 @@ package com.voltek.yandexmobilization.data.model;
 
 public class Language {
 
-    private String code;
-
     private String name;
 
-    public Language(String code, String name) {
+    private String code;
+
+    public Language(String name, String code) {
         this.code = code;
         this.name = name;
     }
 
-    public String getCode() {
-        return code;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public String getCode() {
+        return code;
     }
 }
