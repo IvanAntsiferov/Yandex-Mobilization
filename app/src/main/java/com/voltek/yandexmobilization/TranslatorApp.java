@@ -9,6 +9,8 @@ import timber.log.Timber;
 
 public class TranslatorApp extends Application {
 
+    public static final String BASE_URL = "https://translate.yandex.net/api/";
+
     @Override
     public void onCreate() {
         super.onCreate();
