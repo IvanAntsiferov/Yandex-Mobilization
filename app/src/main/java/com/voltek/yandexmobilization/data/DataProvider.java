@@ -1,6 +1,6 @@
 package com.voltek.yandexmobilization.data;
 
-import com.voltek.yandexmobilization.data.model.Language;
+import com.voltek.yandexmobilization.data.entity.Language;
 
 import java.util.List;
 

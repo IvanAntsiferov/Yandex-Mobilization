@@ -1,7 +1,7 @@
 package com.voltek.yandexmobilization.data.repository;
 
 import com.voltek.yandexmobilization.data.DataProvider;
-import com.voltek.yandexmobilization.data.model.Language;
+import com.voltek.yandexmobilization.data.entity.Language;
 
 import java.util.ArrayList;
 import java.util.List;

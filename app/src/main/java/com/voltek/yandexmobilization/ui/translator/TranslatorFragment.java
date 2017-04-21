@@ -67,10 +67,6 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
 
     @Override
     public void setupSpinners(List<String> languages, int selectFrom, int selectTo) {
-        languages.add("Русский");
-        languages.add("Английский");
-        languages.add("Оченьдлинноеназваниеязыка");
-
         ArrayAdapter langAdapter = new ArrayAdapter<>(
                 getContext(), R.layout.item_spinner_lang, languages);
 

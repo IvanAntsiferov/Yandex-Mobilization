@@ -38,11 +38,11 @@ public class TranslatorApp extends Application {
                 .build();
 
         sInteractorComponent = DaggerInteractorComponent.builder()
-                .appModule(appModule)
                 .repositoryModule(repositoryModule)
                 .build();
 
         sNetworkComponent = DaggerNetworkComponent.builder()
+                .appModule(appModule)
                 .networkModule(networkModule)
                 .build();
 

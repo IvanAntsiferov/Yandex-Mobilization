@@ -18,6 +18,9 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
 
     private RouterBus mRouter;
 
+    private int selectedFrom = 0;
+    private int selectedTo = 1;
+
     public TranslatorPresenter() {
         TranslatorApp.getPresenterComponent().inject(this);
         mRouter = TranslatorApp.getRouterBus();
@@ -28,7 +31,7 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
     public void attachView(TranslatorView view) {
         super.attachView(view);
         getViewState().attachInputListeners();
-        getViewState().setupSpinners(new ArrayList<>(), 0, 1);
+        getViewState().setupSpinners(mLanguages.getLangsNames(), selectedFrom, selectedTo);
     }
 
     @Override
