@@ -9,5 +9,7 @@ import java.util.List;
 public interface TranslatorView extends BaseView {
 
     @StateStrategyType(SkipStrategy.class)
-    void setupSpinners(List<String> languages, int selectFrom, int selectTo);
+    void setupSpinners(List<String> languages, int from, int to);
+
+    void changeLanguagesSelected(int from, int to);
 }

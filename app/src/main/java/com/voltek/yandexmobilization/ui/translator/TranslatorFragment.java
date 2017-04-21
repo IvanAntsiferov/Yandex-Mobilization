@@ -11,6 +11,7 @@ import android.widget.Spinner;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxbinding2.widget.RxAdapterView;
 import com.voltek.yandexmobilization.R;
 import com.voltek.yandexmobilization.ui.BaseFragment;
 
@@ -55,9 +56,15 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     @Override
     public void attachInputListeners() {
         Disposable swapLangsButton = RxView.clicks(mSwapLangs)
-                .subscribe(o -> { /* TODO notify presenter */ }, Timber::e);
+                .subscribe(o -> mPresenter.swapLanguages(), Timber::e);
 
-        mDisposable.addAll(swapLangsButton);
+        Disposable spinnerFrom = RxAdapterView.itemSelections(mSpinFrom)
+                .subscribe(index -> mPresenter.selectorFrom(index), Timber::e);
+
+        Disposable spinnerTo = RxAdapterView.itemSelections(mSpinTo)
+                .subscribe(index -> mPresenter.selectorTo(index), Timber::e);
+
+        mDisposable.addAll(swapLangsButton, spinnerFrom, spinnerTo);
     }
 
     @Override
@@ -66,14 +73,20 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     }
 
     @Override
-    public void setupSpinners(List<String> languages, int selectFrom, int selectTo) {
+    public void setupSpinners(List<String> languages, int from, int to) {
         ArrayAdapter langAdapter = new ArrayAdapter<>(
                 getContext(), R.layout.item_spinner_lang, languages);
 
         mSpinFrom.setAdapter(langAdapter);
         mSpinTo.setAdapter(langAdapter);
 
-        mSpinFrom.setSelection(selectFrom);
-        mSpinTo.setSelection(selectTo);
+        changeLanguagesSelected(from, to);
+    }
+
+    @Override
+    public void changeLanguagesSelected(int from, int to) {
+        Timber.d("changeLanguagesSelected: from " + from + " to " + to);
+        mSpinFrom.setSelection(from);
+        mSpinTo.setSelection(to);
     }
 }
