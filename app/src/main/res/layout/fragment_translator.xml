@@ -4,6 +4,32 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout style="@style/CustomToolbar">
+
+        <Spinner
+            android:id="@+id/spin_from"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/ib_swap"
+            android:background="@android:color/transparent" />
+
+        <ImageButton
+            android:id="@+id/ib_swap"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerInParent="true"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_swap_horiz_24dp" />
+
+        <Spinner
+            android:id="@+id/spin_to"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/ib_swap"
+            android:background="@android:color/transparent" />
+
+    </RelativeLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

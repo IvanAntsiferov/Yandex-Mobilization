@@ -5,6 +5,8 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.voltek.yandexmobilization.TranslatorApp;
 import com.voltek.yandexmobilization.navigation.proxy.RouterBus;
 
+import java.util.ArrayList;
+
 @InjectViewState
 public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
 
@@ -19,6 +21,7 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
     public void attachView(TranslatorView view) {
         super.attachView(view);
         getViewState().attachInputListeners();
+        getViewState().setupSpinners(new ArrayList<>(), 0, 1);
     }
 
     @Override
