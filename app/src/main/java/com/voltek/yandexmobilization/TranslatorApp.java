@@ -18,6 +18,8 @@ public class TranslatorApp extends Application {
 
     private static RouterHolder sRouterHolder;
 
+    private static PresenterComponent sPresenterComponent;
+    private static InteractorComponent sInteractorComponent;
     private static NetworkComponent sNetworkComponent;
 
     @Override
@@ -26,8 +28,22 @@ public class TranslatorApp extends Application {
 
         sRouterHolder = new RouterHolder();
 
+        AppModule appModule = new AppModule(this);
+        UseCaseModule useCaseModule = new UseCaseModule();
+        RepositoryModule repositoryModule = new RepositoryModule();
+        NetworkModule networkModule = new NetworkModule(BASE_URL);
+
+        sPresenterComponent = DaggerPresenterComponent.builder()
+                .useCaseModule(useCaseModule)
+                .build();
+
+        sInteractorComponent = DaggerInteractorComponent.builder()
+                .appModule(appModule)
+                .repositoryModule(repositoryModule)
+                .build();
+
         sNetworkComponent = DaggerNetworkComponent.builder()
-                .networkModule(new NetworkModule(BASE_URL))
+                .networkModule(networkModule)
                 .build();
 
         Realm.init(this);
@@ -41,6 +57,14 @@ public class TranslatorApp extends Application {
 
     public static RouterBus getRouterBus() {
         return sRouterHolder;
+    }
+
+    public static PresenterComponent getPresenterComponent() {
+        return sPresenterComponent;
+    }
+
+    public static InteractorComponent getInteractorComponent() {
+        return sInteractorComponent;
     }
 
     public static NetworkComponent getNetworkComponent() {
