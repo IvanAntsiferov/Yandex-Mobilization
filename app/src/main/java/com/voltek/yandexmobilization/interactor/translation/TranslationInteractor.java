@@ -24,8 +24,9 @@ public class TranslationInteractor implements TranslationUseCase {
     public Observable<Translation> translate(String text, int fromId, int toId) {
         return Observable.create(emitter -> {
             String translationDirection = mLangsRepo.makeTranslationDirectionStr(fromId, toId);
-
+            // TODO сохранять в кэш, искать в кэшэ, отсеивать значения, равные исходному тексту.
             mTranslationsRepo.translateApiRequest(text, translationDirection)
+                    .doFinally(emitter::onComplete)
                     .subscribe(emitter::onNext, emitter::onError);
         });
     }

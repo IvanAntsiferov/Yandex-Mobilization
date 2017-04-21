@@ -7,7 +7,6 @@ import com.voltek.yandexmobilization.data.entity.SelectedLanguages;
 import com.voltek.yandexmobilization.interactor.language.LanguageUseCase;
 import com.voltek.yandexmobilization.interactor.translation.TranslationUseCase;
 import com.voltek.yandexmobilization.interactor.user_data.UserDataUseCase;
-import com.voltek.yandexmobilization.navigation.proxy.RouterBus;
 
 import javax.inject.Inject;
 
@@ -27,16 +26,14 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
     @Inject
     TranslationUseCase mTranslation;
 
-    private RouterBus mRouter;
-
     private int mSelectedFrom;
     private int mSelectedTo;
 
     private String mInput = "";
+    private String mOutput = "";
 
     public TranslatorPresenter() {
         TranslatorApp.getPresenterComponent().inject(this);
-        mRouter = TranslatorApp.getRouterBus();
         SelectedLanguages selectedLanguages = mUserData.getSelectedLangs();
         mSelectedFrom = selectedLanguages.from();
         mSelectedTo = selectedLanguages.to();
@@ -49,6 +46,7 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
         super.attachView(view);
         getViewState().attachInputListeners();
         getViewState().setupSpinners(mLanguages.getLangsNames(), mSelectedFrom, mSelectedTo);
+        getViewState().fillTextFields(mInput, mOutput);
     }
 
     @Override
@@ -86,6 +84,7 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
 
     public void inputChanges(String newValue) {
         mInput = newValue;
+        getViewState().hideError();
     }
 
     public void editTextAction() {
@@ -93,9 +92,20 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
             mTranslation.translate(mInput, mSelectedFrom, mSelectedTo)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(disposable -> {
+                        getViewState().showLoading();
+                    })
+                    .doFinally(() -> {
+                        getViewState().hideLoading();
+                    })
                     .subscribe(translation -> {
-                        getViewState().showTranslationResult(translation.getToText().toString());
-                    }, Timber::e);
+                        mOutput = translation.getToText();
+                        getViewState().showTranslationResult(mOutput);
+                    }, throwable -> {
+                        getViewState().showError(throwable.getMessage());
+                    });
+        } else {
+            // TODO показать ошибку некорректного ввода
         }
     }
 
@@ -106,6 +116,13 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
         mSelectedFrom = mSelectedTo;
         mSelectedTo = temp;
         getViewState().changeLanguagesSelected(mSelectedFrom, mSelectedTo);
+
+        if (!mOutput.isEmpty()) {
+            String tempStr = mInput;
+            mInput = mOutput;
+            mOutput = tempStr;
+            getViewState().fillTextFields(mInput, mOutput);
+        }
         updateSelectedLangs();
     }
 

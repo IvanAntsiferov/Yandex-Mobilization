@@ -7,12 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.PresenterType;
 import com.voltek.yandexmobilization.R;
 import com.voltek.yandexmobilization.ui.BaseFragment;
 
 public class FavoritesFragment extends BaseFragment implements FavoritesView {
 
-    @InjectPresenter
+    @InjectPresenter(type = PresenterType.GLOBAL, tag = "favorites")
     FavoritesPresenter mPresenter;
 
     // Lifecycle

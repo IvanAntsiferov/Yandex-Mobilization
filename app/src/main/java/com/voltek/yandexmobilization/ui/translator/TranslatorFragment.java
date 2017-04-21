@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.PresenterType;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxAdapterView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -24,9 +26,11 @@ import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
+import static android.view.View.GONE;
+
 public class TranslatorFragment extends BaseFragment implements TranslatorView {
 
-    @InjectPresenter
+    @InjectPresenter(type = PresenterType.GLOBAL, tag = "translator")
     TranslatorPresenter mPresenter;
 
     @BindView(R.id.ib_swap)
@@ -38,7 +42,11 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     @BindView(R.id.et_translate)
     EditText mEditText;
     @BindView(R.id.tv_result)
-    TextView result;
+    TextView mResult;
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressBar;
+    @BindView(R.id.tv_error)
+    TextView mErrorView;
 
     // Lifecycle
     @Nullable
@@ -72,9 +80,10 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
                 .subscribe(index -> mPresenter.selectorTo(index), Timber::e);
 
         Disposable inputChanges = RxTextView.textChanges(mEditText)
+                .skip(1) // First always empty
                 .subscribe(charSequence -> mPresenter.inputChanges(charSequence.toString()), Timber::e);
 
-        Disposable editorAction =  RxTextView.editorActions(mEditText)
+        Disposable editorAction = RxTextView.editorActions(mEditText)
                 .subscribe(integer -> mPresenter.editTextAction(), Timber::e);
 
         mDisposable.addAll(swapLangsButton, spinnerFrom, spinnerTo, inputChanges, editorAction);
@@ -105,6 +114,35 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
 
     @Override
     public void showTranslationResult(String result) {
-        this.result.setText(result);
+        this.mResult.setText(result);
+    }
+
+    @Override
+    public void showLoading() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        mProgressBar.setVisibility(GONE);
+    }
+
+    @Override
+    public void showError(String message) {
+        mErrorView.setText(message);
+        mErrorView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideError() {
+        mErrorView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void fillTextFields(String from, String to) {
+        Timber.d("fillTextFields; from:" + from + "; to: " + to);
+        mEditText.setText(from);
+        mResult.setText(to);
+        mResult.setVisibility(View.VISIBLE);
     }
 }

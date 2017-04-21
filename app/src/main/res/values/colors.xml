@@ -5,7 +5,8 @@
     <color name="yellow_md700">#FBC02D</color>
 
     <color name="deep_purple_md200a">#7C4DFF</color>
-
     <color name="deep_purple_md500">#673AB7</color>
+
+    <color name="red_md200a">#FF5252</color>
 
 </resources>

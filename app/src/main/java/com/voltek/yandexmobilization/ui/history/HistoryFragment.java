@@ -7,12 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.PresenterType;
 import com.voltek.yandexmobilization.R;
 import com.voltek.yandexmobilization.ui.BaseFragment;
 
 public class HistoryFragment extends BaseFragment implements HistoryView {
 
-    @InjectPresenter
+    @InjectPresenter(type = PresenterType.GLOBAL, tag = "history")
     HistoryPresenter mPresenter;
 
     // Lifecycle

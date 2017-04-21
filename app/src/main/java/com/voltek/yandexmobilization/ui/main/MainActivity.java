@@ -28,7 +28,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends MvpAppCompatActivity implements MainView, Navigator {
 
-    @InjectPresenter(type = PresenterType.GLOBAL)
+    @InjectPresenter(type = PresenterType.GLOBAL, tag = "main")
     MainPresenter mPresenter;
 
     @BindView(R.id.bottom_navigation)
@@ -62,6 +62,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // TODO пофиксить удаление фрагментов
     }
 
     // View interface related

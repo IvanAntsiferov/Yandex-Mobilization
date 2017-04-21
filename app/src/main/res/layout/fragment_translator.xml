@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:orientation="vertical">
 
-    <RelativeLayout style="@style/CustomToolbar">
+    <RelativeLayout
+        android:id="@+id/custom_toolbar"
+        style="@style/CustomToolbar">
 
         <Spinner
             android:id="@+id/spin_from"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toLeftOf="@+id/ib_swap"
             android:background="@android:color/transparent" />
@@ -23,24 +26,86 @@
 
         <Spinner
             android:id="@+id/spin_to"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/ib_swap"
             android:background="@android:color/transparent" />
 
     </RelativeLayout>
-    <!-- TODO разделить экран на 2 части, from-to -->
-    <EditText
-        android:id="@+id/et_translate"
+
+    <LinearLayout
+        android:id="@+id/container_text"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/translator_fragment_et_height"
-        android:imeOptions="actionDone"
-        android:inputType="text" />
+        android:layout_height="@dimen/translator_fragment_main_block_height"
+        android:layout_below="@id/custom_toolbar"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_translate"
+            style="@style/Text.Medium"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:hint="@string/translator_input_hint"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:padding="@dimen/translator_fragment_text_padding" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/translator_fragment_text_padding">
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_result"
+                style="@style/Text.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="#616161"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/container_text"
+        android:layout_marginLeft="@dimen/translator_fragment_text_padding"
+        android:layout_marginRight="@dimen/translator_fragment_text_padding"
+        android:background="@android:color/darker_gray" />
 
     <TextView
-        android:id="@+id/tv_result"
+        android:id="@+id/tv_error"
+        style="@style/Text.Small.Bolder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="3"
+        android:padding="@dimen/translator_fragment_text_padding"
+        android:textColor="@color/red_md200a"
+        android:visibility="invisible" />
 
-</LinearLayout>
+</RelativeLayout>

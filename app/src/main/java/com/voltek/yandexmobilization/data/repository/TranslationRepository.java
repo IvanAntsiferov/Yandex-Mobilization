@@ -42,8 +42,9 @@ public class TranslationRepository implements DataProvider.Translations {
                         mApi.translate(BuildConfig.API_KEY, text, langs).execute();
 
                 if (response.isSuccessful()) {
+                    String outText = response.body().text.get(0);
                     Translation translation =
-                            new Translation(response.body().lang, text, response.body().text);
+                            new Translation(response.body().lang, text, outText);
                     Timber.d(response.raw().request().url().toString());
                     emitter.onNext(translation);
                 } else {

@@ -8,9 +8,9 @@ public class Translation {
 
     private String fromText;
 
-    private List<String> toText;
+    private String toText;
 
-    public Translation(String langs, String fromText, List<String> toText) {
+    public Translation(String langs, String fromText, String toText) {
         this.langs = langs;
         this.fromText = fromText;
         this.toText = toText;
@@ -24,7 +24,7 @@ public class Translation {
         return fromText;
     }
 
-    public List<String> getToText() {
+    public String getToText() {
         return toText;
     }
 }
