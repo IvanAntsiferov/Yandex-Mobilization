@@ -18,7 +18,6 @@ import io.reactivex.Observable;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import retrofit2.Response;
-import timber.log.Timber;
 
 public class TranslationRepository implements DataProvider.Translations {
 
@@ -47,17 +46,24 @@ public class TranslationRepository implements DataProvider.Translations {
                     String outText = response.body().text.get(0);
                     Translation translation =
                             new Translation(response.body().lang, text, outText, false);
-                    Timber.d(response.raw().request().url().toString());
                     emitter.onNext(translation);
                 } else {
-                    // TODO обрабатывать все коды ошибок 401, 402, 403, 404, 413, 422, 501
-                    Timber.e(response.message());
-                    Timber.e(response.toString());
-                    Timber.e(response.code() + "");
-                    Timber.e(response.raw().request().url().toString());
-                    Timber.e(response.errorBody().string());
-                    emitter.onError(
-                            new Exception(mContext.getString(R.string.error_request_failed)));
+                    // Get error message corresponding to response code
+                    String error = mContext.getString(R.string.error_request_failed);
+                    if (response.code() == 401) {
+                        error = mContext.getString(R.string.error_api_key_wrong);
+                    } else if (response.code() == 402) {
+                        error = mContext.getString(R.string.error_api_key_blocked);
+                    } else if (response.code() == 404) {
+                        error = mContext.getString(R.string.error_request_limit_exceeded);
+                    } else if (response.code() == 413) {
+                        error = mContext.getString(R.string.error_text_limit_exceeded);
+                    } else if (response.code() == 422) {
+                        error = mContext.getString(R.string.error_cant_translate);
+                    } else if (response.code() == 501) {
+                        error = mContext.getString(R.string.error_unsupported_translation_direction);
+                    }
+                    emitter.onError(new Exception(error));
                 }
             } else {
                 emitter.onError(new Exception(mContext.getString(R.string.error_no_connection)));

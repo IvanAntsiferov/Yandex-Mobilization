@@ -11,6 +11,13 @@
 
     <string name="error_no_connection">Нет соединения с интернетом</string>
     <string name="error_request_failed">Сервер не отвечает</string>
+    <string name="error_api_key_wrong">Неверный API-ключ приложения</string>
+    <string name="error_api_key_blocked">API-ключ приложения заблокирован</string>
+    <string name="error_request_limit_exceeded">Превышено суточное ограничение на объем переведенного текста</string>
+    <string name="error_text_limit_exceeded">Превышен максимально допустимый размер текста</string>
+    <string name="error_cant_translate">Текст не может быть переведен</string>
+    <string name="error_unsupported_translation_direction">Заданное направление перевода не поддерживается</string>
+
     <string name="error_input_short">Введите хотя бы 1 символ</string>
 
 </resources>
