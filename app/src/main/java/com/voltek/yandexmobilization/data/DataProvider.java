@@ -11,8 +11,29 @@ public final class DataProvider {
 
     private DataProvider() {}
 
-    public interface languages {
+    public interface Languages {
 
+        /**
+         * @return list of language name-code pairs.
+         */
         List<Language> get();
+    }
+
+    public interface UserData {
+
+        /**
+         * Put key-value pair to data storage.
+         * @param key unique string id
+         * @param value object of any type
+         */
+        void putValue(String key, Object value);
+
+        /**
+         * Get a value, that matches requested key.
+         * @param key unique string id
+         * @param defaultValue if value does not exist, default value will be saved and returned
+         * @return value of type, that matches unique od (first param)
+         */
+        Object getValue(String key, Object defaultValue);
     }
 }

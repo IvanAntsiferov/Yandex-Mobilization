@@ -2,6 +2,7 @@ package com.voltek.yandexmobilization.di.module;
 
 import com.voltek.yandexmobilization.data.DataProvider;
 import com.voltek.yandexmobilization.data.repository.LanguagesRepository;
+import com.voltek.yandexmobilization.data.repository.UserDataRepository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -10,7 +11,12 @@ import dagger.Provides;
 public class RepositoryModule {
 
     @Provides
-    DataProvider.languages provideLanguagesRepository() {
+    DataProvider.UserData provideUserDataRepository() {
+        return new UserDataRepository();
+    }
+
+    @Provides
+    DataProvider.Languages provideLanguagesRepository() {
         return new LanguagesRepository();
     }
 }

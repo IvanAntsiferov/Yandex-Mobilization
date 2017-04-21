@@ -6,7 +6,7 @@ import com.voltek.yandexmobilization.data.entity.Language;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LanguagesRepository implements DataProvider.languages {
+public class LanguagesRepository implements DataProvider.Languages {
 
     @Override
     public List<Language> get() {

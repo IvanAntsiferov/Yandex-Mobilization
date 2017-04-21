@@ -23,8 +23,6 @@ import timber.log.Timber;
 
 public class TranslatorFragment extends BaseFragment implements TranslatorView {
 
-    // TODO при выборе двух одинаковых языков в обеих полях, менять их местами
-
     @InjectPresenter
     TranslatorPresenter mPresenter;
 
@@ -59,9 +57,11 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
                 .subscribe(o -> mPresenter.swapLanguages(), Timber::e);
 
         Disposable spinnerFrom = RxAdapterView.itemSelections(mSpinFrom)
+                .skip(1) // Skip first emmit because of spinner auto-select
                 .subscribe(index -> mPresenter.selectorFrom(index), Timber::e);
 
         Disposable spinnerTo = RxAdapterView.itemSelections(mSpinTo)
+                .skip(1) // Skip first emmit because of spinner auto-select
                 .subscribe(index -> mPresenter.selectorTo(index), Timber::e);
 
         mDisposable.addAll(swapLangsButton, spinnerFrom, spinnerTo);

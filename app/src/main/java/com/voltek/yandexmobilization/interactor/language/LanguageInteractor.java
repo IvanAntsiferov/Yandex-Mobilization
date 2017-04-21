@@ -12,7 +12,7 @@ import javax.inject.Inject;
 public class LanguageInteractor implements LanguageUseCase {
 
     @Inject
-    DataProvider.languages mLangsRepo;
+    DataProvider.Languages mLangsRepo;
 
     public LanguageInteractor() {
         TranslatorApp.getInteractorComponent().inject(this);
