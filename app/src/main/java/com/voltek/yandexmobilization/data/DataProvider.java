@@ -4,6 +4,9 @@ import com.voltek.yandexmobilization.data.model.Language;
 
 import java.util.List;
 
+/**
+ * Set of interfaces, that provides access to data.
+ */
 public final class DataProvider {
 
     private DataProvider() {}

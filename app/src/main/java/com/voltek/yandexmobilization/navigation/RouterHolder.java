@@ -7,6 +7,13 @@ import com.voltek.yandexmobilization.navigation.proxy.RouterBus;
 
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
+/**
+ * Controls app navigation.
+ * RouterBinder used to bind activity with implemented Navigator interface,
+ * RouterBus used to queue navigation events from presenters.
+ */
 public class RouterHolder implements RouterBus, RouterBinder {
 
     private ArrayList<NavigatorCommand> commandsQueue = new ArrayList<>();
@@ -15,17 +22,20 @@ public class RouterHolder implements RouterBus, RouterBinder {
 
     @Override
     public void setNavigator(Navigator navigator) {
+        Timber.d("setNavigator");
         this.navigator = navigator;
         executeQueue();
     }
 
     @Override
     public void removeNavigator() {
+        Timber.d("removeNavigator");
         this.navigator = null;
     }
 
     @Override
     public void execute(NavigatorCommand command) {
+        Timber.d("execute, id: " + command.getId());
         if (navigator == null || !navigator.executeCommand(command)) {
             if (command.isAddToQueue())
                 commandsQueue.add(command);
@@ -33,6 +43,7 @@ public class RouterHolder implements RouterBus, RouterBinder {
     }
 
     private void executeQueue() {
+        Timber.d("executeQueue, size: " + commandsQueue.size());
         for (NavigatorCommand command : commandsQueue) {
             if (navigator == null) return;
             if (navigator.executeCommand(command)) commandsQueue.remove(command);

@@ -1,9 +1,11 @@
 package com.voltek.yandexmobilization.ui.history;
 
+import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.voltek.yandexmobilization.TranslatorApp;
 import com.voltek.yandexmobilization.navigation.proxy.RouterBus;
 
+@InjectViewState
 public class HistoryPresenter extends MvpPresenter<HistoryView> {
 
     private RouterBus mRouter;
