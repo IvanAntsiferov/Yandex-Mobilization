@@ -11,5 +11,6 @@
 
     <string name="error_no_connection">Нет соединения с интернетом</string>
     <string name="error_request_failed">Сервер не отвечает</string>
+    <string name="error_input_short">Введите хотя бы 1 символ</string>
 
 </resources>

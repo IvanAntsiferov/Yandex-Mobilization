@@ -51,5 +51,13 @@ public final class DataProvider {
          * @param langs from-to languages in format "en-ru"
          */
         Observable<Translation> translateApiRequest(String text, String langs);
+
+        Translation searchTranslationInCache(String text, String langs);
+
+        /**
+         * Adds translation, passed as argument, to cache.
+         * Before caching checks if it already exists in DB.
+         */
+        void addTranslationToCache(Translation translation);
     }
 }

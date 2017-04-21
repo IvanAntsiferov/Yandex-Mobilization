@@ -15,6 +15,8 @@ import com.voltek.yandexmobilization.networking.entity.TranslateResponse;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Response;
 import timber.log.Timber;
 
@@ -44,7 +46,7 @@ public class TranslationRepository implements DataProvider.Translations {
                 if (response.isSuccessful()) {
                     String outText = response.body().text.get(0);
                     Translation translation =
-                            new Translation(response.body().lang, text, outText);
+                            new Translation(response.body().lang, text, outText, false);
                     Timber.d(response.raw().request().url().toString());
                     emitter.onNext(translation);
                 } else {
@@ -62,5 +64,42 @@ public class TranslationRepository implements DataProvider.Translations {
             }
             emitter.onComplete();
         });
+    }
+
+    @Override
+    public Translation searchTranslationInCache(String text, String langs) {
+        Realm realm = Realm.getDefaultInstance();
+
+        RealmResults<Translation> results = realm.where(Translation.class)
+                .equalTo("langs", langs)
+                .equalTo("fromText", text)
+                .findAll();
+
+        if (results.size() > 0) {
+            Translation translation = realm.copyFromRealm(results).get(0);
+            realm.close();
+            return translation;
+        } else {
+            realm.close();
+            return null;
+        }
+    }
+
+    @Override
+    public void addTranslationToCache(Translation translation) {
+        Realm realm = Realm.getDefaultInstance();
+        // Check, if same translation already exists in cache
+        RealmResults<Translation> results = realm.where(Translation.class)
+                .equalTo("langs", translation.getLangs())
+                .equalTo("fromText", translation.getFromText())
+                .equalTo("toText", translation.getToText())
+                .findAll();
+        // If not, add to cache
+        if (results.isEmpty()) {
+            realm.beginTransaction();
+            realm.copyToRealm(translation);
+            realm.commitTransaction();
+        }
+        realm.close();
     }
 }

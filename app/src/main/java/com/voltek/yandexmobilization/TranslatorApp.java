@@ -37,6 +37,7 @@ public class TranslatorApp extends Application {
         NetworkModule networkModule = new NetworkModule(BASE_URL);
 
         sPresenterComponent = DaggerPresenterComponent.builder()
+                .appModule(appModule)
                 .useCaseModule(useCaseModule)
                 .build();
 

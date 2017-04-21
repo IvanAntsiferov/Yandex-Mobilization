@@ -114,7 +114,8 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
 
     @Override
     public void showTranslationResult(String result) {
-        this.mResult.setText(result);
+        mResult.setText(result);
+        mResult.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -140,9 +141,14 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
 
     @Override
     public void fillTextFields(String from, String to) {
-        Timber.d("fillTextFields; from:" + from + "; to: " + to);
+        Timber.d("fillTextFields; from: " + from + "; to: " + to);
         mEditText.setText(from);
         mResult.setText(to);
         mResult.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideResults() {
+        mResult.setVisibility(GONE);
     }
 }

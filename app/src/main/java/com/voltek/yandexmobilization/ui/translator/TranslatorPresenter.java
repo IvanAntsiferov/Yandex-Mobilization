@@ -1,7 +1,10 @@
 package com.voltek.yandexmobilization.ui.translator;
 
+import android.content.Context;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.voltek.yandexmobilization.R;
 import com.voltek.yandexmobilization.TranslatorApp;
 import com.voltek.yandexmobilization.data.entity.SelectedLanguages;
 import com.voltek.yandexmobilization.interactor.language.LanguageUseCase;
@@ -16,6 +19,9 @@ import timber.log.Timber;
 
 @InjectViewState
 public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
+
+    @Inject
+    Context mContext;
 
     @Inject
     UserDataUseCase mUserData;
@@ -88,6 +94,8 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
     }
 
     public void editTextAction() {
+        getViewState().hideResults();
+
         if (isInputCorrect()) {
             mTranslation.translate(mInput, mSelectedFrom, mSelectedTo)
                     .subscribeOn(Schedulers.io())
@@ -105,7 +113,7 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
                         getViewState().showError(throwable.getMessage());
                     });
         } else {
-            // TODO показать ошибку некорректного ввода
+            getViewState().showError(mContext.getString(R.string.error_input_short));
         }
     }
 
