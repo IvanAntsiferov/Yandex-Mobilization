@@ -1,4 +1,4 @@
-package com.voltek.yandexmobilization.ui.translator;
+package com.voltek.yandexmobilization.ui.history;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,16 +10,16 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.voltek.yandexmobilization.R;
 import com.voltek.yandexmobilization.ui.BaseFragment;
 
-public class TranslatorFragment extends BaseFragment implements TranslatorView {
+public class HistoryFragment extends BaseFragment implements HistoryView {
 
     @InjectPresenter
-    TranslatorPresenter mPresenter;
+    HistoryPresenter mPresenter;
 
     // Lifecycle
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_translator, container, false);
+        return inflater.inflate(R.layout.fragment_history, container, false);
     }
 
     @Override
