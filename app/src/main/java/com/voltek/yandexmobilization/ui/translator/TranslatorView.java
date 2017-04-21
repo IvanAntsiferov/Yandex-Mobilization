@@ -12,4 +12,6 @@ public interface TranslatorView extends BaseView {
     void setupSpinners(List<String> languages, int from, int to);
 
     void changeLanguagesSelected(int from, int to);
+
+    void showTranslationResult(String result);
 }

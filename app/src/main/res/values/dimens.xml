@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="translator_fragment_et_height">160dp</dimen>
+
+</resources>

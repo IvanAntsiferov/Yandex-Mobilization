@@ -13,6 +13,12 @@ public class LanguagesRepository implements DataProvider.Languages {
         return hardcodedLanguages();
     }
 
+    @Override
+    public String makeTranslationDirectionStr(int from, int to) {
+        List<Language> langs = hardcodedLanguages();
+        return langs.get(from).getCode() + "-" + langs.get(to).getCode();
+    }
+
     private List<Language> hardcodedLanguages() {
         List<Language> languages = new ArrayList<>();
 

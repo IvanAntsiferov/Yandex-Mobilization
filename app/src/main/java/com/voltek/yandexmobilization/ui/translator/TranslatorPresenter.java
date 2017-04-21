@@ -5,11 +5,14 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.voltek.yandexmobilization.TranslatorApp;
 import com.voltek.yandexmobilization.data.entity.SelectedLanguages;
 import com.voltek.yandexmobilization.interactor.language.LanguageUseCase;
+import com.voltek.yandexmobilization.interactor.translation.TranslationUseCase;
 import com.voltek.yandexmobilization.interactor.user_data.UserDataUseCase;
 import com.voltek.yandexmobilization.navigation.proxy.RouterBus;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 @InjectViewState
@@ -21,10 +24,15 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
     @Inject
     LanguageUseCase mLanguages;
 
+    @Inject
+    TranslationUseCase mTranslation;
+
     private RouterBus mRouter;
 
     private int mSelectedFrom;
     private int mSelectedTo;
+
+    private String mInput = "";
 
     public TranslatorPresenter() {
         TranslatorApp.getPresenterComponent().inject(this);
@@ -76,6 +84,21 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
         }
     }
 
+    public void inputChanges(String newValue) {
+        mInput = newValue;
+    }
+
+    public void editTextAction() {
+        if (isInputCorrect()) {
+            mTranslation.translate(mInput, mSelectedFrom, mSelectedTo)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(translation -> {
+                        getViewState().showTranslationResult(translation.getToText().toString());
+                    }, Timber::e);
+        }
+    }
+
     // Private logic
     private void swapSelection() {
         Timber.d("swapSelection");
@@ -89,5 +112,9 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
     private void updateSelectedLangs() {
         SelectedLanguages newValue = new SelectedLanguages(mSelectedFrom, mSelectedTo);
         mUserData.updateSelectedLangs(newValue);
+    }
+
+    private boolean isInputCorrect() {
+        return !mInput.isEmpty();
     }
 }

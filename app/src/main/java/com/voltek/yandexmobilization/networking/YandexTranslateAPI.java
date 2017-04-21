@@ -8,9 +8,9 @@ import retrofit2.http.Query;
 
 public interface YandexTranslateAPI {
 
-    @POST("v1.5/tr.json/translate")
+    @POST("/api/v1.5/tr.json/translate")
     Call<TranslateResponse> translate(
             @Query("key") String apiKey,
-            @Query("lang") String langToLang, // В формате en-ru
-            @Query("text") String text);
+            @Query("text") String text,
+            @Query("lang") String langToLang);
 }

@@ -29,11 +29,18 @@
             android:background="@android:color/transparent" />
 
     </RelativeLayout>
+    <!-- TODO разделить экран на 2 части, from-to -->
+    <EditText
+        android:id="@+id/et_translate"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/translator_fragment_et_height"
+        android:imeOptions="actionDone"
+        android:inputType="text" />
 
     <TextView
+        android:id="@+id/tv_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="TRANSLATOR" />
+        android:gravity="center" />
 
 </LinearLayout>

@@ -1,8 +1,12 @@
 package com.voltek.yandexmobilization.data;
 
 import com.voltek.yandexmobilization.data.entity.Language;
+import com.voltek.yandexmobilization.data.entity.Translation;
+import com.voltek.yandexmobilization.networking.entity.TranslateResponse;
 
 import java.util.List;
+
+import io.reactivex.Observable;
 
 /**
  * Set of interfaces, that provides access to data.
@@ -17,6 +21,8 @@ public final class DataProvider {
          * @return list of language name-code pairs.
          */
         List<Language> get();
+
+        String makeTranslationDirectionStr(int from, int to);
     }
 
     public interface UserData {
@@ -35,5 +41,15 @@ public final class DataProvider {
          * @return value of type, that matches unique od (first param)
          */
         Object getValue(String key, Object defaultValue);
+    }
+
+    public interface Translations {
+
+        /**
+         * Request to server API
+         * @param text string, that need to be translated
+         * @param langs from-to languages in format "en-ru"
+         */
+        Observable<Translation> translateApiRequest(String text, String langs);
     }
 }

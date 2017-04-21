@@ -15,7 +15,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class TranslatorApp extends Application {
 
-    public static final String BASE_URL = "https://translate.yandex.net/api/";
+    public static final String BASE_URL = "https://translate.yandex.net/";
     public static final String BASE_FONT = "fonts/Roboto-Regular.ttf";
 
     private static RouterHolder sRouterHolder;

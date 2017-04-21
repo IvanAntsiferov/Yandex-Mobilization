@@ -43,7 +43,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
         Timber.d("onCreate");
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        TranslatorApp.getNetworkComponent().inject(this);
     }
 
     @Override

@@ -7,4 +7,7 @@
     <string name="nb_favorites">Закладки</string>
     <string name="nb_history">История</string>
 
+    <string name="error_no_connection">Нет соединения с интернетом</string>
+    <string name="error_request_failed">Сервер не отвечает</string>
+
 </resources>

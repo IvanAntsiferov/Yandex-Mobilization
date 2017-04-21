@@ -6,12 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxAdapterView;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.voltek.yandexmobilization.R;
 import com.voltek.yandexmobilization.ui.BaseFragment;
 
@@ -32,6 +35,10 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     Spinner mSpinFrom;
     @BindView(R.id.spin_to)
     Spinner mSpinTo;
+    @BindView(R.id.et_translate)
+    EditText mEditText;
+    @BindView(R.id.tv_result)
+    TextView result;
 
     // Lifecycle
     @Nullable
@@ -64,7 +71,13 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
                 .skip(1) // Skip first emmit because of spinner auto-select
                 .subscribe(index -> mPresenter.selectorTo(index), Timber::e);
 
-        mDisposable.addAll(swapLangsButton, spinnerFrom, spinnerTo);
+        Disposable inputChanges = RxTextView.textChanges(mEditText)
+                .subscribe(charSequence -> mPresenter.inputChanges(charSequence.toString()), Timber::e);
+
+        Disposable editorAction =  RxTextView.editorActions(mEditText)
+                .subscribe(integer -> mPresenter.editTextAction(), Timber::e);
+
+        mDisposable.addAll(swapLangsButton, spinnerFrom, spinnerTo, inputChanges, editorAction);
     }
 
     @Override
@@ -88,5 +101,10 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
         Timber.d("changeLanguagesSelected: from " + from + " to " + to);
         mSpinFrom.setSelection(from);
         mSpinTo.setSelection(to);
+    }
+
+    @Override
+    public void showTranslationResult(String result) {
+        this.result.setText(result);
     }
 }
