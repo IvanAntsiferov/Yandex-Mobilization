@@ -1,5 +1,6 @@
 package com.voltek.yandexmobilization.ui.main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -23,6 +24,7 @@ import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends MvpAppCompatActivity implements MainView, Navigator {
 
@@ -56,6 +58,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
         super.onPause();
         Timber.d("onPause");
         TranslatorApp.getRouterBinder().removeNavigator();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     // View interface related

@@ -11,10 +11,12 @@ import com.voltek.yandexmobilization.navigation.proxy.RouterBus;
 
 import io.realm.Realm;
 import timber.log.Timber;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class TranslatorApp extends Application {
 
     public static final String BASE_URL = "https://translate.yandex.net/api/";
+    public static final String BASE_FONT = "fonts/Roboto-Regular.ttf";
 
     private static RouterHolder sRouterHolder;
 
@@ -26,6 +28,7 @@ public class TranslatorApp extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // DI components/modules and app singletones init
         sRouterHolder = new RouterHolder();
 
         AppModule appModule = new AppModule(this);
@@ -46,6 +49,12 @@ public class TranslatorApp extends Application {
                 .networkModule(networkModule)
                 .build();
 
+        // Libraries init
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath(BASE_FONT)
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
         Realm.init(this);
         Hawk.init(this).build();
         Timber.plant(new Timber.DebugTree());

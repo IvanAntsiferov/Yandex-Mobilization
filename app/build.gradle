@@ -40,6 +40,7 @@ ext {
     timberVersion = '4.5.1'
     moxyVersion = '1.5.1'
     hawkVersion = '2.0.1'
+    calligraphyVersion = '2.2.0'
 
     espressoVersion = '2.2.2'
     junitVersion = '4.12'
@@ -92,4 +93,7 @@ dependencies {
 
     // Data
     compile "com.orhanobut:hawk:${hawkVersion}"
+
+    // Fonts
+    compile "uk.co.chrisjenx:calligraphy:${calligraphyVersion}"
 }
