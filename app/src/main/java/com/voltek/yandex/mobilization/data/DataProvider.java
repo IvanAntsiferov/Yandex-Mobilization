@@ -75,8 +75,10 @@ public final class DataProvider {
          * @param newerThanId filters cache with ids only created after this argument
          *                    if -1 passed, this filter get ignored.
          * @param onlyFavorites filter translations that only have been marked as favorite
+         * @param contains filter translations that contains provided text
+         *                 in any field. (from or to)
          */
-        List<Translation> getCache(int newerThanId, boolean onlyFavorites);
+        List<Translation> getCache(int newerThanId, boolean onlyFavorites, String contains);
 
         /**
          * Remove all cached translations.

@@ -54,8 +54,8 @@ public class TranslationInteractor implements com.voltek.yandex.mobilization.int
     }
 
     @Override
-    public List<Translation> getHistory(int newerThan, boolean onlyFavorites) {
-        return mTranslationsRepo.getCache(newerThan, onlyFavorites);
+    public List<Translation> getHistory(int newerThan, boolean onlyFavorites, String contains) {
+        return mTranslationsRepo.getCache(newerThan, onlyFavorites, contains);
     }
 
     @Override

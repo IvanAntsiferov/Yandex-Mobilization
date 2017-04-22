@@ -26,7 +26,7 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
     @Inject
     TranslationUseCase mTranslations;
 
-    private List<Translation> mItems;
+    private List<Translation> mItems = new ArrayList<>();
     private int mLastId = -1;
     private boolean mFilterFavorite = false;
     private String mSearchQuery = "";
@@ -74,12 +74,16 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
     }
 
     public void searchButtonPressed() {
-
+        if (!mSearchQuery.isEmpty())
+            loadData();
     }
 
     public void clearSearchButtonPressed() {
-        mSearchQuery = "";
-        getViewState().changeSearchFieldText(mSearchQuery);
+        if (!mSearchQuery.isEmpty()) {
+            mSearchQuery = "";
+            getViewState().changeSearchFieldText(mSearchQuery);
+            loadData();
+        }
     }
 
     public void searchQueryChanges(String newValue) {
@@ -88,15 +92,13 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
 
     // Private logic
     private void loadData() {
-        mItems = mTranslations.getHistory(-1, mFilterFavorite);
+        getViewState().hideEmpty();
+        mItems.clear();
+        mItems = mTranslations.getHistory(-1, mFilterFavorite, mSearchQuery);
         Timber.d("loadData, size " + mItems.size());
         if (mItems.isEmpty()) {
             mLastId = -1;
-            if (mFilterFavorite) {
-                getViewState().showEmpty(mContext.getString(R.string.error_no_favorites));
-            } else {
-                getViewState().showEmpty(mContext.getString(R.string.error_no_history));
-            }
+            chooseError();
         } else {
             mLastId = mItems.get(0).getId();
         }
@@ -104,26 +106,34 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
     }
 
     private void checkIfDataWasUpdated() {
-        List<Translation> translations = mTranslations.getHistory(mLastId, mFilterFavorite);
+        List<Translation> translations = mTranslations.getHistory(mLastId, mFilterFavorite, mSearchQuery);
         if (!translations.isEmpty()) {
             mLastId = translations.get(0).getId();
             mItems.addAll(0, translations);
             getViewState().hideEmpty();
             getViewState().replaceData(mItems);
         } else if (mLastId == -1) {
-            if (mFilterFavorite) {
-                getViewState().showEmpty(mContext.getString(R.string.error_no_favorites));
-            } else {
-                getViewState().showEmpty(mContext.getString(R.string.error_no_history));
-            }
+            chooseError();
         }
     }
 
     private void wipeData() {
         mLastId = -1;
+        mSearchQuery = "";
         mItems.clear();
         mTranslations.wipeHistory();
         getViewState().replaceData(new ArrayList<>());
+        getViewState().changeSearchFieldText(mSearchQuery);
         getViewState().showEmpty(mContext.getString(R.string.error_no_history));
+    }
+
+    private void chooseError() {
+        if (!mSearchQuery.isEmpty()) {
+            getViewState().showEmpty(mContext.getString(R.string.error_nothing_found));
+        } else if (mFilterFavorite) {
+            getViewState().showEmpty(mContext.getString(R.string.error_no_favorites));
+        } else {
+            getViewState().showEmpty(mContext.getString(R.string.error_no_history));
+        }
     }
 }

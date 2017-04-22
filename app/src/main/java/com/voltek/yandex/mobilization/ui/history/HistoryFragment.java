@@ -164,7 +164,7 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
                     getResources().getDrawable(R.drawable.ic_bookmark_24dp));
         } else {
             mButtonFilterFavorite.setImageDrawable(
-                    getResources().getDrawable(R.drawable.ic_bookmark_border_24dp));
+                    getResources().getDrawable(R.drawable.ic_bookmark_half_border_black_24dp));
         }
     }
 

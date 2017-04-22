@@ -157,7 +157,7 @@ public class TranslationRepository implements DataProvider.Translations {
     }
 
     @Override
-    public List<Translation> getCache(int newerThanId, boolean onlyFavorites) {
+    public List<Translation> getCache(int newerThanId, boolean onlyFavorites, String contains) {
         Realm realm = Realm.getDefaultInstance();
 
         RealmQuery<Translation> query = realm
@@ -169,12 +169,21 @@ public class TranslationRepository implements DataProvider.Translations {
         if (onlyFavorites) {
             query.equalTo("favorite", true);
         }
+        if (!contains.isEmpty()) {
+            query
+                    .beginGroup()
+                    .contains("fromText", contains)
+                    .or()
+                    .contains("toText", contains)
+                    .endGroup();
+        }
 
         RealmResults<Translation> results = query.findAll();
         results = results.sort("id", Sort.DESCENDING);
         List<Translation> cache = realm.copyFromRealm(results);
 
-        Timber.d("getCache, size: " + cache.size() + ", Filters - newer than " + newerThanId + ", favorites " + onlyFavorites);
+        Timber.d("getCache, size: " + cache.size() + ", Filters - newer than "
+                + newerThanId + ", favorites " + onlyFavorites + ", contains " + contains);
 
         realm.close();
         return cache;
