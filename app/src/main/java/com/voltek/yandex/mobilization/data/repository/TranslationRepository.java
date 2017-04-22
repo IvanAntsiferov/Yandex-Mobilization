@@ -18,6 +18,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.realm.Realm;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import io.realm.Sort;
 import retrofit2.Response;
@@ -156,14 +157,21 @@ public class TranslationRepository implements DataProvider.Translations {
     }
 
     @Override
-    public List<Translation> getCache() {
+    public List<Translation> getCache(int newerThanId) {
         Realm realm = Realm.getDefaultInstance();
 
-        RealmResults<Translation> results = realm
-                .where(Translation.class)
-                .findAll();
+        RealmQuery<Translation> query = realm
+                .where(Translation.class);
+
+        if (newerThanId >= 0) {
+            query.greaterThan("id", newerThanId);
+        }
+
+        RealmResults<Translation> results = query.findAll();
         results = results.sort("id", Sort.DESCENDING);
         List<Translation> cache = realm.copyFromRealm(results);
+
+        Timber.d("getCache, size: " + cache.size());
 
         realm.close();
         return cache;

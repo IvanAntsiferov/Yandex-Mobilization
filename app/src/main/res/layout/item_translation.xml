@@ -15,29 +15,33 @@
 
     <RelativeLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:paddingLeft="@dimen/translator_fragment_text_padding"
         android:paddingRight="@dimen/translator_fragment_text_padding">
 
         <TextView
-            android:id="@+id/tv_to"
+            android:id="@+id/tv_from"
             style="@style/Text.Small.Bolder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1" />
 
         <TextView
-            android:id="@+id/tv_from"
-            style="@style/Text.Small"
+            android:id="@+id/tv_to"
+            style="@style/Text.Small.Light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_from" />
+            android:layout_below="@id/tv_from"
+            android:ellipsize="end"
+            android:maxLines="1" />
 
     </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_direction"
-        style="@style/Text.Medium"
+        style="@style/Text.Small.Bolder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

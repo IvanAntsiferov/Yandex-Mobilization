@@ -71,6 +71,10 @@ public final class DataProvider {
          */
         void updateTranslationInCache(Translation translation);
 
-        List<Translation> getCache();
+        /**
+         * @param newerThanId filters cache with ids only created after this argument
+         *                    if -1 passed, this filter get ignored.
+         */
+        List<Translation> getCache(int newerThanId);
     }
 }

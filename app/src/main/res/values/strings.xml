@@ -2,11 +2,13 @@
 <resources>
 
     <string name="app_name">Переводчик</string>
-    
+
+    <!-- Bottom navigation bar -->
     <string name="nb_translator">Переводчик</string>
     <string name="nb_favorites">Закладки</string>
     <string name="nb_history">История</string>
 
+    <!-- Translation fragment -->
     <string name="translator_input_hint">Введите текст</string>
 
     <string name="error_no_connection">Нет соединения с интернетом</string>
@@ -23,5 +25,8 @@
     <string name="error_nothing_to_favorite">Добавить в закладки можно только успешный перевод</string>
     <string name="msg_added_to_favorites">Перевод добавлен в закладки</string>
     <string name="msg_removed_from_favorites">Перевод удален из закладок</string>
+
+    <!-- History fragment -->
+    <string name="error_no_history">У Вас пока нет истории переводов</string>
 
 </resources>

@@ -72,4 +72,15 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     public int getItemCount() {
         return mItems.size();
     }
+
+    public void replaceData(List<Translation> translations) {
+        mItems.clear();
+        mItems.addAll(translations);
+        notifyDataSetChanged();
+    }
+
+    public void addData(List<Translation> translations) {
+        mItems.addAll(0, translations);
+        notifyItemRangeInserted(0, translations.size());
+    }
 }

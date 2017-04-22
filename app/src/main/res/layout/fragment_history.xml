@@ -2,13 +2,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:orientation="vertical">
 
-    <RelativeLayout style="@style/CustomToolbar"/>
+    <RelativeLayout style="@style/CustomToolbar" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical" />
+
+        <RelativeLayout
+            android:id="@+id/rl_empty_state"
+            android:layout_width="192dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="32dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/im_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_empty_box_64dp" />
+
+            <TextView
+                android:id="@+id/tv_empty"
+                style="@style/Text.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/im_empty"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="@string/error_no_history" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
 
 </LinearLayout>
