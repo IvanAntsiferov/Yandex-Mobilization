@@ -38,6 +38,9 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
     }
 
     // View notifications
+    public void deleteButtonPressed() {
+
+    }
 
     // Private logic
     private void loadData() {

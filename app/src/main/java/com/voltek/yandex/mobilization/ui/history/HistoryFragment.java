@@ -8,10 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.PresenterType;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.voltek.yandex.mobilization.R;
 import com.voltek.yandex.mobilization.entity.general.Translation;
 import com.voltek.yandex.mobilization.ui.BaseFragment;
@@ -20,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
 
 public class HistoryFragment extends BaseFragment implements HistoryView {
 
@@ -30,6 +34,8 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
     RecyclerView mRecyclerView;
     @BindView(R.id.rl_empty_state)
     RelativeLayout mEmptyState;
+    @BindView(R.id.ib_delete)
+    ImageButton mButtonDelete;
 
     private TranslationAdapter mAdapter;
 
@@ -61,7 +67,10 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
     // View interface
     @Override
     public void attachInputListeners() {
-        mDisposable.addAll();
+        Disposable buttonDelete = RxView.clicks(mButtonDelete)
+                .subscribe(o -> mPresenter.deleteButtonPressed(), Timber::e);
+
+        mDisposable.addAll(buttonDelete);
     }
 
     @Override

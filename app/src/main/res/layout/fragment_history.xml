@@ -5,7 +5,21 @@
     android:animateLayoutChanges="true"
     android:orientation="vertical">
 
-    <RelativeLayout style="@style/CustomToolbar" />
+    <RelativeLayout
+        style="@style/CustomToolbar"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <ImageButton
+            android:id="@+id/ib_delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_delete_24dp" />
+
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
