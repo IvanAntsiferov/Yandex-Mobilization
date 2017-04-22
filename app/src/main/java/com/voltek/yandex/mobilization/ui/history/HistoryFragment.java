@@ -2,6 +2,7 @@ package com.voltek.yandex.mobilization.ui.history;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.PresenterType;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
@@ -96,5 +99,30 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
     @Override
     public void hideEmpty() {
         mEmptyState.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showToast(String message, int length) {
+        Toast.makeText(getContext(), message, length).show();
+    }
+
+    @Override
+    public void showWipeHistoryDialog() {
+        Disposable wipeDialog = Observable.create(subscriber -> {
+            final AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                    .setMessage(R.string.dlg_wipe_cache_warning)
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        subscriber.onNext(new Object());
+                        subscriber.onComplete();
+                    })
+                    .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                        dialog.dismiss();
+                        subscriber.onComplete();
+                    })
+                    .create();
+            alertDialog.show();
+        }).subscribe(o -> mPresenter.wipeHistoryDialogConfirm(), Timber::e);
+
+        mDisposable.add(wipeDialog);
     }
 }

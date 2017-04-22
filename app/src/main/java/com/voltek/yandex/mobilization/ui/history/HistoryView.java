@@ -23,4 +23,10 @@ public interface HistoryView extends BaseView {
 
     @StateStrategyType(SkipStrategy.class)
     void hideEmpty();
+
+    @StateStrategyType(SkipStrategy.class)
+    void showToast(String message, int length);
+
+    @StateStrategyType(SkipStrategy.class)
+    void showWipeHistoryDialog();
 }

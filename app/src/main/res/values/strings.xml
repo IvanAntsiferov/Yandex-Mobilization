@@ -28,5 +28,8 @@
 
     <!-- History fragment -->
     <string name="error_no_history">У Вас пока нет истории переводов</string>
+    <string name="error_nothing_to_delete">Нечего удалять</string>
+
+    <string name="dlg_wipe_cache_warning">Вы уверены, что хотите очистить историю переводов?</string>
 
 </resources>
