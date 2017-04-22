@@ -14,6 +14,7 @@ public abstract class BaseFragment extends MvpAppCompatFragment {
 
     private Unbinder mUnbinder;
 
+    // Holds all disposable with input events subscriptions
     protected CompositeDisposable mDisposable = new CompositeDisposable();
 
     @Override

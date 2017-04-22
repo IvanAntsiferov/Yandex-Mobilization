@@ -5,21 +5,37 @@
     android:animateLayoutChanges="true"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         style="@style/CustomToolbar"
+        android:orientation="horizontal"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
+
+        <ImageButton
+            android:id="@+id/ib_filter_favorite"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_bookmark_border_24dp" />
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@android:color/transparent" />
 
         <ImageButton
             android:id="@+id/ib_delete"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
             android:background="?selectableItemBackgroundBorderless"
             android:src="@drawable/ic_delete_24dp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

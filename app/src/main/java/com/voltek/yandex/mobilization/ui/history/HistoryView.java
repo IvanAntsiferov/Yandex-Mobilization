@@ -29,4 +29,7 @@ public interface HistoryView extends BaseView {
 
     @StateStrategyType(SkipStrategy.class)
     void showWipeHistoryDialog();
+
+    @StateStrategyType(AddToEndSingleStrategy.class)
+    void changeFilterFavoriteIcon(boolean isChecked);
 }

@@ -39,6 +39,8 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
     RelativeLayout mEmptyState;
     @BindView(R.id.ib_delete)
     ImageButton mButtonDelete;
+    @BindView(R.id.ib_filter_favorite)
+    ImageButton mButtonFilterFavorite;
 
     private TranslationAdapter mAdapter;
 
@@ -46,6 +48,7 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // TODO при нажатии на айтем открывать диалог с подробностями о переводе в отдельном окне
         mAdapter = new TranslationAdapter(getContext(), new ArrayList<>());
         return inflater.inflate(R.layout.fragment_history, container, false);
     }
@@ -73,7 +76,10 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
         Disposable buttonDelete = RxView.clicks(mButtonDelete)
                 .subscribe(o -> mPresenter.deleteButtonPressed(), Timber::e);
 
-        mDisposable.addAll(buttonDelete);
+        Disposable buttonFilterFavorite = RxView.clicks(mButtonFilterFavorite)
+                .subscribe(o -> mPresenter.filterFavoritePressed(), Timber::e);
+
+        mDisposable.addAll(buttonDelete, buttonFilterFavorite);
     }
 
     @Override
@@ -124,5 +130,16 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
         }).subscribe(o -> mPresenter.wipeHistoryDialogConfirm(), Timber::e);
 
         mDisposable.add(wipeDialog);
+    }
+
+    @Override
+    public void changeFilterFavoriteIcon(boolean isChecked) {
+        if (isChecked) {
+            mButtonFilterFavorite.setImageDrawable(
+                    getResources().getDrawable(R.drawable.ic_bookmark_24dp));
+        } else {
+            mButtonFilterFavorite.setImageDrawable(
+                    getResources().getDrawable(R.drawable.ic_bookmark_border_24dp));
+        }
     }
 }

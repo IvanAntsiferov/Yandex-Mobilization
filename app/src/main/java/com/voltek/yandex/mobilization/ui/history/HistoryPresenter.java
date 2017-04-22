@@ -25,6 +25,7 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
     TranslationUseCase mTranslations;
 
     private int mLastId = -1;
+    private boolean mFilterFavorite = false;
 
     public HistoryPresenter() {
         TranslatorApp.getPresenterComponent().inject(this);
@@ -37,6 +38,7 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
         super.attachView(view);
         getViewState().attachInputListeners();
         checkIfDataWasUpdated();
+        getViewState().changeFilterFavoriteIcon(mFilterFavorite);
     }
 
     @Override
@@ -57,6 +59,10 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
 
     public void wipeHistoryDialogConfirm() {
         wipeData();
+    }
+
+    public void filterFavoritePressed() {
+
     }
 
     // Private logic
