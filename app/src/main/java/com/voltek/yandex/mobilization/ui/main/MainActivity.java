@@ -63,13 +63,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        // TODO пофиксить удаление фрагментов
-    }
-
     // View interface related
     @Override
     public void attachInputListeners() {
@@ -85,6 +78,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
     public void detachInputListeners() {
         Timber.d("detachInputListeners");
         mDisposable.clear();
+    }
+
+    @Override
+    public void selectFragmentId(int id) {
+        Timber.d("selectFragmentAtIndex " + id);
+        mBottomNav.setSelectedItemId(id);
     }
 
     // App navigation

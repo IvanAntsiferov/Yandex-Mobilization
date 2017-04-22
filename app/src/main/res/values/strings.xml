@@ -8,7 +8,7 @@
     <string name="nb_history">История</string>
 
     <!-- Translation fragment -->
-    <string name="translator_input_hint">Введите текст</string>
+    <string name="hint_translator_input">Введите текст</string>
 
     <string name="error_no_connection">Нет соединения с интернетом</string>
     <string name="error_request_failed">Сервер не отвечает</string>
@@ -31,5 +31,7 @@
     <string name="error_nothing_to_delete">Нечего удалять</string>
 
     <string name="dlg_wipe_cache_warning">Вы уверены, что хотите очистить историю переводов?</string>
+
+    <string name="hint_history_search">Найти</string>
 
 </resources>

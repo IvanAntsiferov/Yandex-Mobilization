@@ -21,11 +21,22 @@
 
         <EditText
             android:id="@+id/et_search"
+            style="@style/Text.Medium.Light"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_weight="1"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/white"
+            android:drawableLeft="@drawable/ic_search_24dp"
+            android:drawablePadding="@dimen/translator_fragment_text_padding"
+            android:elevation="3dp"
+            android:hint="@string/hint_history_search"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:padding="4dp"
+            android:textColor="@color/grey_md700" />
 
         <ImageButton
             android:id="@+id/ib_delete"

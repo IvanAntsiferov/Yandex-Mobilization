@@ -5,8 +5,6 @@ import com.voltek.yandex.mobilization.navigation.proxy.NavigatorCommand;
 import com.voltek.yandex.mobilization.navigation.proxy.RouterBinder;
 import com.voltek.yandex.mobilization.navigation.proxy.RouterBus;
 
-import java.util.ArrayList;
-
 import timber.log.Timber;
 
 /**
@@ -16,7 +14,7 @@ import timber.log.Timber;
  */
 public class RouterHolder implements RouterBus, RouterBinder {
 
-    private ArrayList<NavigatorCommand> commandsQueue = new ArrayList<>();
+    private NavigatorCommand commandsQueue = null;
 
     private Navigator navigator = null;
 
@@ -38,15 +36,16 @@ public class RouterHolder implements RouterBus, RouterBinder {
         Timber.d("execute, id: " + command.getId());
         if (navigator == null || !navigator.executeCommand(command)) {
             if (command.isAddToQueue())
-                commandsQueue.add(command);
+                commandsQueue = command;
         }
     }
 
     private void executeQueue() {
-        Timber.d("executeQueue, size: " + commandsQueue.size());
-        for (NavigatorCommand command : commandsQueue) {
-            if (navigator == null) return;
-            if (navigator.executeCommand(command)) commandsQueue.remove(command);
+        Timber.d("executeQueue");
+        if (navigator != null && commandsQueue != null) {
+            if (navigator.executeCommand(commandsQueue)) {
+                commandsQueue = null;
+            }
         }
     }
 }

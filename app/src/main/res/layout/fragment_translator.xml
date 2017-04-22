@@ -54,7 +54,7 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:gravity="center"
-                android:hint="@string/translator_input_hint"
+                android:hint="@string/hint_translator_input"
                 android:imeOptions="actionDone"
                 android:lines="@integer/translator_fragment_result_max_lines"
                 android:maxLength="9999"
