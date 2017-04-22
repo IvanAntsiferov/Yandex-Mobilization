@@ -5,7 +5,6 @@
 
     <!-- Bottom navigation bar -->
     <string name="nb_translator">Переводчик</string>
-    <string name="nb_favorites">Закладки</string>
     <string name="nb_history">История</string>
 
     <!-- Translation fragment -->

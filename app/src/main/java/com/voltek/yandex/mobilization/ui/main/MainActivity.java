@@ -15,7 +15,6 @@ import com.voltek.yandex.mobilization.TranslatorApp;
 import com.voltek.yandex.mobilization.navigation.command.CommandReplaceFragment;
 import com.voltek.yandex.mobilization.navigation.proxy.Navigator;
 import com.voltek.yandex.mobilization.navigation.proxy.NavigatorCommand;
-import com.voltek.yandex.mobilization.ui.favorites.FavoritesFragment;
 import com.voltek.yandex.mobilization.ui.history.HistoryFragment;
 import com.voltek.yandex.mobilization.ui.translator.TranslatorFragment;
 
@@ -105,8 +104,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
         Fragment fragment;
 
         if (index == 1) {
-            fragment = new FavoritesFragment();
-        } else if (index == 2) {
             fragment = new HistoryFragment();
         } else {
             fragment = new TranslatorFragment();

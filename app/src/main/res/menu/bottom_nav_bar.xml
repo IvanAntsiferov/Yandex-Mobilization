@@ -11,18 +11,10 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_favorites"
-        android:enabled="true"
-        android:icon="@drawable/ic_bookmark_24dp"
-        android:orderInCategory="1"
-        android:title="@string/nb_favorites"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/action_history"
         android:enabled="true"
         android:icon="@drawable/ic_history_24dp"
-        android:orderInCategory="2"
+        android:orderInCategory="1"
         android:title="@string/nb_history"
         app:showAsAction="ifRoom" />
 
