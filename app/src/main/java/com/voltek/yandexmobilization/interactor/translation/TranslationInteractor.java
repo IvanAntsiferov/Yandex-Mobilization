@@ -48,4 +48,9 @@ public class TranslationInteractor implements TranslationUseCase {
             }
         });
     }
+
+    @Override
+    public void updateFavorites(Translation translation) {
+
+    }
 }

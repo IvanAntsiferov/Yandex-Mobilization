@@ -17,7 +17,7 @@ public interface TranslatorView extends BaseView {
     void changeLanguagesSelected(int from, int to);
 
     @StateStrategyType(OneExecutionStateStrategy.class)
-    void showTranslationResult(String result);
+    void showTranslationResult(String result, boolean isFavorite);
 
     @StateStrategyType(OneExecutionStateStrategy.class)
     void showLoading();
@@ -26,17 +26,20 @@ public interface TranslatorView extends BaseView {
     void hideLoading();
 
     @StateStrategyType(OneExecutionStateStrategy.class)
-    void showError(String message);
+    void showMessage(String message);
 
     @StateStrategyType(OneExecutionStateStrategy.class)
-    void hideError();
+    void hideMessage();
 
     @StateStrategyType(OneExecutionStateStrategy.class)
-    void fillTextFields(String from, String to);
+    void fillTextFields(String from, String to, boolean isFavorite);
 
     @StateStrategyType(SkipStrategy.class)
     void hideResults();
 
     @StateStrategyType(SkipStrategy.class)
     void openResultInDialog(String result);
+
+    @StateStrategyType(OneExecutionStateStrategy.class)
+    void setFavoriteIcon(boolean isFavorite);
 }

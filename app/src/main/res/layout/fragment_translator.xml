@@ -38,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/translator_fragment_main_block_height"
         android:layout_below="@id/custom_toolbar"
+        android:animateLayoutChanges="true"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -56,6 +57,7 @@
                 android:hint="@string/translator_input_hint"
                 android:imeOptions="actionDone"
                 android:inputType="text"
+                android:maxLength="9999"
                 android:paddingBottom="24dp" />
 
             <ImageButton
@@ -142,7 +144,7 @@
         android:gravity="center"
         android:maxLines="3"
         android:padding="@dimen/translator_fragment_text_padding"
-        android:textColor="@color/red_md200a"
+        android:textColor="@color/grey_md700"
         android:visibility="invisible" />
 
 </RelativeLayout>

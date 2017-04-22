@@ -7,6 +7,7 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.voltek.yandexmobilization.R;
 import com.voltek.yandexmobilization.TranslatorApp;
 import com.voltek.yandexmobilization.data.entity.SelectedLanguages;
+import com.voltek.yandexmobilization.data.entity.Translation;
 import com.voltek.yandexmobilization.interactor.language.LanguageUseCase;
 import com.voltek.yandexmobilization.interactor.translation.TranslationUseCase;
 import com.voltek.yandexmobilization.interactor.user_data.UserDataUseCase;
@@ -37,6 +38,9 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
 
     private String mInput = "";
     private String mOutput = "";
+    private boolean mIsFavorite = false;
+
+    private Translation mLastLoadedTranslation;
 
     public TranslatorPresenter() {
         TranslatorApp.getPresenterComponent().inject(this);
@@ -52,7 +56,7 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
         super.attachView(view);
         getViewState().attachInputListeners();
         getViewState().setupSpinners(mLanguages.getLangsNames(), mSelectedFrom, mSelectedTo);
-        getViewState().fillTextFields(mInput, mOutput);
+        getViewState().fillTextFields(mInput, mOutput, mIsFavorite);
     }
 
     @Override
@@ -90,7 +94,7 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
 
     public void inputChanges(String newValue) {
         mInput = newValue;
-        getViewState().hideError();
+        getViewState().hideMessage();
     }
 
     public void editTextAction() {
@@ -100,12 +104,24 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
             translationRequest();
         } else {
             wipeTextFields();
-            getViewState().showError(mContext.getString(R.string.error_input_short));
+            getViewState().showMessage(mContext.getString(R.string.error_input_short));
         }
     }
 
     public void favoritePressed() {
-        //
+        if (mLastLoadedTranslation != null) {
+            mIsFavorite = !mLastLoadedTranslation.getFavorite();
+            mLastLoadedTranslation.setFavorite(mIsFavorite);
+            mTranslation.updateFavorites(mLastLoadedTranslation);
+            getViewState().setFavoriteIcon(mIsFavorite);
+            if (mIsFavorite) {
+                getViewState().showMessage(mContext.getString(R.string.msg_added_to_favorites));
+            } else {
+                getViewState().showMessage(mContext.getString(R.string.msg_removed_from_favorites));
+            }
+        } else {
+            getViewState().showMessage(mContext.getString(R.string.error_nothing_to_favorite));
+        }
     }
 
     public void fullscreenPressed() {
@@ -124,23 +140,20 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
         mTranslation.translate(mInput, mSelectedFrom, mSelectedTo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(disposable -> {
-                    getViewState().showLoading();
-                })
-                .doFinally(() -> {
-                    getViewState().hideLoading();
-                })
+                .doOnSubscribe(disposable -> getViewState().showLoading())
+                .doFinally(() -> getViewState().hideLoading())
                 .subscribe(translation -> {
+                    mLastLoadedTranslation = translation;
                     mOutput = translation.getToText();
-                    getViewState().showTranslationResult(mOutput);
-                }, throwable -> {
-                    getViewState().showError(throwable.getMessage());
-                });
+                    mIsFavorite = translation.getFavorite();
+                    getViewState().showTranslationResult(mOutput, mIsFavorite);
+                }, throwable -> getViewState().showMessage(throwable.getMessage()));
     }
 
     private void wipeTextFields() {
+        mIsFavorite = false;
         mInput = mOutput = "";
-        getViewState().fillTextFields(mInput, mOutput);
+        getViewState().fillTextFields(mInput, mOutput, mIsFavorite);
     }
 
     private void swapSelection() {
@@ -154,7 +167,7 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
             String tempStr = mInput;
             mInput = mOutput;
             mOutput = tempStr;
-            getViewState().fillTextFields(mInput, mOutput);
+            getViewState().fillTextFields(mInput, mOutput, mIsFavorite);
         }
         updateSelectedLangs();
     }

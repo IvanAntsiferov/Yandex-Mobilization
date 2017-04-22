@@ -131,9 +131,10 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     }
 
     @Override
-    public void showTranslationResult(String result) {
+    public void showTranslationResult(String result, boolean isFavorite) {
         mResult.setText(result);
         mResult.setVisibility(View.VISIBLE);
+        setFavoriteIcon(isFavorite);
     }
 
     @Override
@@ -147,27 +148,29 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     }
 
     @Override
-    public void showError(String message) {
+    public void showMessage(String message) {
         mErrorView.setText(message);
         mErrorView.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void hideError() {
+    public void hideMessage() {
         mErrorView.setVisibility(View.INVISIBLE);
     }
 
     @Override
-    public void fillTextFields(String from, String to) {
+    public void fillTextFields(String from, String to, boolean isFavorite) {
         Timber.d("fillTextFields; from: " + from + "; to: " + to);
         mEditText.setText(from);
         mResult.setText(to);
         mResult.setVisibility(View.VISIBLE);
+        setFavoriteIcon(isFavorite);
     }
 
     @Override
     public void hideResults() {
         mResult.setVisibility(GONE);
+        setFavoriteIcon(false);
     }
 
     @Override
@@ -176,5 +179,14 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
         TranslationResultDialog dialog = TranslationResultDialog.newInstance(result);
         dialog.show(fm, "dialog_translation_result");
         Timber.d(result);
+    }
+
+    @Override
+    public void setFavoriteIcon(boolean isFavorite) {
+        if (isFavorite) {
+            mFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_bookmark_24dp));
+        } else {
+            mFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_bookmark_border_24dp));
+        }
     }
 }

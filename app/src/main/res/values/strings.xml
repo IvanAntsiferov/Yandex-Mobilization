@@ -20,4 +20,8 @@
 
     <string name="error_input_short">Введите хотя бы 1 символ</string>
 
+    <string name="error_nothing_to_favorite">Добавить в закладки можно только успешный перевод</string>
+    <string name="msg_added_to_favorites">Перевод добавлен в закладки</string>
+    <string name="msg_removed_from_favorites">Перевод удален из закладок</string>
+
 </resources>
