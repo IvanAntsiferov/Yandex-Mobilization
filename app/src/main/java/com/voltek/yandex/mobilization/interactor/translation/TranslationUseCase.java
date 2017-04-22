@@ -15,4 +15,6 @@ public interface TranslationUseCase {
     List<Translation> getHistory();
 
     List<Translation> getHistoryNewerThan(int lastId);
+
+    void wipeHistory();
 }

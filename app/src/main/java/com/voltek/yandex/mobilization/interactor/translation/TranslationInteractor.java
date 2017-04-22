@@ -62,4 +62,9 @@ public class TranslationInteractor implements com.voltek.yandex.mobilization.int
     public List<Translation> getHistoryNewerThan(int lastId) {
         return mTranslationsRepo.getCache(lastId);
     }
+
+    @Override
+    public void wipeHistory() {
+        mTranslationsRepo.wipeCache();
+    }
 }

@@ -76,5 +76,10 @@ public final class DataProvider {
          *                    if -1 passed, this filter get ignored.
          */
         List<Translation> getCache(int newerThanId);
+
+        /**
+         * Remove all cached translations.
+         */
+        void wipeCache();
     }
 }

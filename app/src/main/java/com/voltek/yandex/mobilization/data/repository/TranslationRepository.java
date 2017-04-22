@@ -176,4 +176,13 @@ public class TranslationRepository implements DataProvider.Translations {
         realm.close();
         return cache;
     }
+
+    @Override
+    public void wipeCache() {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        realm.deleteAll();
+        realm.commitTransaction();
+        realm.close();
+    }
 }

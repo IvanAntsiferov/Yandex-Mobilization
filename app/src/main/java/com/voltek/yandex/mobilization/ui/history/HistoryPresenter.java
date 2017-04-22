@@ -10,6 +10,7 @@ import com.voltek.yandex.mobilization.TranslatorApp;
 import com.voltek.yandex.mobilization.entity.general.Translation;
 import com.voltek.yandex.mobilization.interactor.translation.TranslationUseCase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -81,7 +82,9 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
     }
 
     private void wipeData() {
-        //mLastId = -1;
-        //
+        mLastId = -1;
+        mTranslations.wipeHistory();
+        getViewState().replaceData(new ArrayList<>());
+        getViewState().showEmpty();
     }
 }
