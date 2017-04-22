@@ -59,5 +59,10 @@ public final class DataProvider {
          * Before caching checks if it already exists in DB.
          */
         void addTranslationToCache(Translation translation);
+
+        /**
+         * Updates currently existing translation by its unique id
+         */
+        void updateTranslationInCache(Translation translation);
     }
 }

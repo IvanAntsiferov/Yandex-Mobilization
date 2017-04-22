@@ -18,6 +18,7 @@ import io.reactivex.Observable;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import retrofit2.Response;
+import timber.log.Timber;
 
 public class TranslationRepository implements DataProvider.Translations {
 
@@ -45,7 +46,7 @@ public class TranslationRepository implements DataProvider.Translations {
                 if (response.isSuccessful()) {
                     String outText = response.body().text.get(0);
                     Translation translation =
-                            new Translation(response.body().lang, text, outText, false);
+                            new Translation(-1, response.body().lang, text, outText, false);
                     emitter.onNext(translation);
                 } else {
                     // Get error message corresponding to response code
@@ -95,16 +96,57 @@ public class TranslationRepository implements DataProvider.Translations {
     public void addTranslationToCache(Translation translation) {
         Realm realm = Realm.getDefaultInstance();
         // Check, if same translation already exists in cache
-        RealmResults<Translation> results = realm.where(Translation.class)
+        Translation results = realm.where(Translation.class)
+                // If it was loaded from cache, it has same id
+                .equalTo("id", translation.getId())
+                .or()
+                // If not, may have same parameters
                 .equalTo("langs", translation.getLangs())
                 .equalTo("fromText", translation.getFromText())
                 .equalTo("toText", translation.getToText())
-                .findAll();
+                .findFirst();
         // If not, add to cache
-        if (results.isEmpty()) {
+        if (results == null) {
             realm.beginTransaction();
+
+            int nextID;
+            try {
+                // Incrementing primary key manually
+                nextID = realm.where(Translation.class).max("id").intValue() + 1;
+            } catch (NullPointerException e) {
+                // If there is first item, being added to cache, give it id = 0
+                nextID = 0;
+            }
+            Timber.d("addTranslationToCache, with id " + nextID);
+
+            translation.setId(nextID);
             realm.copyToRealm(translation);
             realm.commitTransaction();
+        }
+        realm.close();
+    }
+
+    @Override
+    public void updateTranslationInCache(Translation translation) {
+        Realm realm = Realm.getDefaultInstance();
+
+        Translation cached = realm.where(Translation.class)
+                // If it was loaded from cache, it has same id
+                .equalTo("id", translation.getId())
+                .or()
+                // If not, may have same parameters
+                .equalTo("langs", translation.getLangs())
+                .equalTo("fromText", translation.getFromText())
+                .equalTo("toText", translation.getToText())
+                .findFirst();
+
+        if (cached != null) {
+            realm.beginTransaction();
+            cached.setFavorite(translation.getFavorite());
+            realm.commitTransaction();
+            Timber.d("updateTranslationInCache, with id " + translation.getId() + " set favorite to " + translation.getFavorite());
+        } else {
+            Timber.e("Update failed: Translation was not found in Realm");
         }
         realm.close();
     }

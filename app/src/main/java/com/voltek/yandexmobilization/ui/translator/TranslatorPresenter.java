@@ -110,15 +110,7 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
 
     public void favoritePressed() {
         if (mLastLoadedTranslation != null) {
-            mIsFavorite = !mLastLoadedTranslation.getFavorite();
-            mLastLoadedTranslation.setFavorite(mIsFavorite);
-            mTranslation.updateFavorites(mLastLoadedTranslation);
-            getViewState().setFavoriteIcon(mIsFavorite);
-            if (mIsFavorite) {
-                getViewState().showMessage(mContext.getString(R.string.msg_added_to_favorites));
-            } else {
-                getViewState().showMessage(mContext.getString(R.string.msg_removed_from_favorites));
-            }
+            updateTranslationFavoriteState();
         } else {
             getViewState().showMessage(mContext.getString(R.string.error_nothing_to_favorite));
         }
@@ -148,6 +140,18 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
                     mIsFavorite = translation.getFavorite();
                     getViewState().showTranslationResult(mOutput, mIsFavorite);
                 }, throwable -> getViewState().showMessage(throwable.getMessage()));
+    }
+
+    private void updateTranslationFavoriteState() {
+        mIsFavorite = !mLastLoadedTranslation.getFavorite();
+        mLastLoadedTranslation.setFavorite(mIsFavorite);
+        mTranslation.updateFavorites(mLastLoadedTranslation);
+        getViewState().setFavoriteIcon(mIsFavorite);
+        if (mIsFavorite) {
+            getViewState().showMessage(mContext.getString(R.string.msg_added_to_favorites));
+        } else {
+            getViewState().showMessage(mContext.getString(R.string.msg_removed_from_favorites));
+        }
     }
 
     private void wipeTextFields() {

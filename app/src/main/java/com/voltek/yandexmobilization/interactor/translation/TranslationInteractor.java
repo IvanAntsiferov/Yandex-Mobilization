@@ -31,17 +31,11 @@ public class TranslationInteractor implements TranslationUseCase {
 
             if (fromCache == null) {
                 mTranslationsRepo.translateApiRequest(text, translationDirection)
-                        .doOnNext(translation -> {
-                            // Cache translation, if it is different from input text
-                            if (!translation.getToText().equals(text)) {
-                                Timber.d("translate, caching");
-                                mTranslationsRepo.addTranslationToCache(translation);
-                            }
-                        })
+                        .doOnNext(translation -> mTranslationsRepo.addTranslationToCache(translation))
                         .doFinally(emitter::onComplete)
                         .subscribe(emitter::onNext, emitter::onError);
             } else {
-                Timber.d("translate, return cache");
+                Timber.d("translate, return cache with id " + fromCache.getId());
                 // Return cache
                 emitter.onNext(fromCache);
                 emitter.onComplete();
@@ -51,6 +45,6 @@ public class TranslationInteractor implements TranslationUseCase {
 
     @Override
     public void updateFavorites(Translation translation) {
-
+        mTranslationsRepo.updateTranslationInCache(translation);
     }
 }

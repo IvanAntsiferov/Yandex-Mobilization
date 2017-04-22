@@ -1,8 +1,12 @@
 package com.voltek.yandexmobilization.data.entity;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Translation extends RealmObject {
+
+    @PrimaryKey
+    private int id;
 
     private String langs;
 
@@ -14,11 +18,20 @@ public class Translation extends RealmObject {
 
     public Translation() {}
 
-    public Translation(String langs, String fromText, String toText, Boolean favorite) {
+    public Translation(int id, String langs, String fromText, String toText, Boolean favorite) {
+        this.id = id;
         this.langs = langs;
         this.fromText = fromText;
         this.toText = toText;
         this.favorite = favorite;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getLangs() {
