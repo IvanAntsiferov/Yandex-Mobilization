@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer name="translator_fragment_result_max_lines">5</integer>
-
     <dimen name="translator_fragment_main_block_height">160dp</dimen>
     <dimen name="translator_fragment_text_padding">8dp</dimen>
 

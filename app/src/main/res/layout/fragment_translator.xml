@@ -56,9 +56,11 @@
                 android:gravity="center"
                 android:hint="@string/translator_input_hint"
                 android:imeOptions="actionDone"
-                android:inputType="text"
+                android:inputType="textMultiLine"
+                android:lines="@integer/translator_fragment_result_max_lines"
                 android:maxLength="9999"
-                android:paddingBottom="24dp" />
+                android:paddingBottom="24dp"
+                android:scrollbars="vertical" />
 
             <ImageButton
                 android:id="@+id/ib_clear_input"
