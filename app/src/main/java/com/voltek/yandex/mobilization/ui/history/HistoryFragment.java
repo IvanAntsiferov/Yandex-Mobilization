@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.PresenterType;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.voltek.yandex.mobilization.R;
 import com.voltek.yandex.mobilization.entity.general.Translation;
 import com.voltek.yandex.mobilization.ui.BaseFragment;
@@ -44,6 +46,12 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
     ImageButton mButtonDelete;
     @BindView(R.id.ib_filter_favorite)
     ImageButton mButtonFilterFavorite;
+    @BindView(R.id.et_search)
+    EditText mEditTextSearch;
+    @BindView(R.id.ib_clear_search)
+    ImageButton mButtonClearSearch;
+    @BindView(R.id.ib_search)
+    ImageButton mButtonSearch;
 
     private TranslationAdapter mAdapter;
 
@@ -82,7 +90,24 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
         Disposable buttonFilterFavorite = RxView.clicks(mButtonFilterFavorite)
                 .subscribe(o -> mPresenter.filterFavoritePressed(), Timber::e);
 
-        mDisposable.addAll(buttonDelete, buttonFilterFavorite);
+        Disposable buttonSearch = RxView.clicks(mButtonSearch)
+                .subscribe(o -> mPresenter.searchButtonPressed(), Timber::e);
+
+        Disposable buttonClear = RxView.clicks(mButtonClearSearch)
+                .subscribe(o -> mPresenter.clearSearchButtonPressed(), Timber::e);
+
+        Disposable editTextAction = RxTextView.editorActions(mEditTextSearch)
+                .subscribe(integer -> mPresenter.searchButtonPressed(), Timber::e);
+
+        Disposable inputChanges = RxTextView.textChanges(mEditTextSearch)
+                .skip(1) // First always empty
+                .subscribe(
+                        charSequence -> mPresenter.searchQueryChanges(charSequence.toString()),
+                        Timber::e);
+
+        mDisposable.addAll(
+                buttonDelete, buttonFilterFavorite, buttonSearch, buttonClear,
+                editTextAction, inputChanges);
     }
 
     @Override
@@ -141,5 +166,10 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
             mButtonFilterFavorite.setImageDrawable(
                     getResources().getDrawable(R.drawable.ic_bookmark_border_24dp));
         }
+    }
+
+    @Override
+    public void changeSearchFieldText(String text) {
+        mEditTextSearch.setText(text);
     }
 }

@@ -28,4 +28,7 @@ public interface HistoryView extends BaseView {
 
     @StateStrategyType(AddToEndSingleStrategy.class)
     void changeFilterFavoriteIcon(boolean isChecked);
+
+    @StateStrategyType(OneExecutionStateStrategy.class)
+    void changeSearchFieldText(String text);
 }

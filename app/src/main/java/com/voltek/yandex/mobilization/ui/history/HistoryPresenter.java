@@ -29,6 +29,7 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
     private List<Translation> mItems;
     private int mLastId = -1;
     private boolean mFilterFavorite = false;
+    private String mSearchQuery = "";
 
     public HistoryPresenter() {
         TranslatorApp.getPresenterComponent().inject(this);
@@ -42,6 +43,7 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
         getViewState().attachInputListeners();
         checkIfDataWasUpdated();
         getViewState().changeFilterFavoriteIcon(mFilterFavorite);
+        getViewState().changeSearchFieldText(mSearchQuery);
     }
 
     @Override
@@ -69,6 +71,19 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
         mFilterFavorite = !mFilterFavorite;
         getViewState().changeFilterFavoriteIcon(mFilterFavorite);
         loadData();
+    }
+
+    public void searchButtonPressed() {
+
+    }
+
+    public void clearSearchButtonPressed() {
+        mSearchQuery = "";
+        getViewState().changeSearchFieldText(mSearchQuery);
+    }
+
+    public void searchQueryChanges(String newValue) {
+        mSearchQuery = newValue;
     }
 
     // Private logic

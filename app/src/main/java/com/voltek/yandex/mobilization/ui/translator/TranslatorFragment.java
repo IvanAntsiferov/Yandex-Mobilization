@@ -85,7 +85,7 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
         Disposable inputChanges = RxTextView.textChanges(mEditText)
                 .skip(1) // First always empty
                 .subscribe(charSequence -> mPresenter.inputChanges(charSequence.toString()), Timber::e);
-        // TODO пофиксить изменения из-за многострочной версии
+
         Disposable editorAction = RxTextView.editorActions(mEditText)
                 .subscribe(integer -> mPresenter.editTextAction(), Timber::e);
 
