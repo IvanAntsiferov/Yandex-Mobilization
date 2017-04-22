@@ -79,8 +79,8 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         notifyDataSetChanged();
     }
 
-    public void addData(List<Translation> translations) {
-        mItems.addAll(0, translations);
-        notifyItemRangeInserted(0, translations.size());
+    public void clear() {
+        mItems.clear();
+        notifyDataSetChanged();
     }
 }

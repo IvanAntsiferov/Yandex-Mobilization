@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -37,6 +38,8 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
     RecyclerView mRecyclerView;
     @BindView(R.id.rl_empty_state)
     RelativeLayout mEmptyState;
+    @BindView(R.id.tv_empty)
+    TextView mEmptyTextView;
     @BindView(R.id.ib_delete)
     ImageButton mButtonDelete;
     @BindView(R.id.ib_filter_favorite)
@@ -93,12 +96,9 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
     }
 
     @Override
-    public void addData(List<Translation> translations) {
-        mAdapter.addData(translations);
-    }
-
-    @Override
-    public void showEmpty() {
+    public void showEmpty(String message) {
+        mAdapter.clear();
+        mEmptyTextView.setText(message);
         mEmptyState.setVisibility(View.VISIBLE);
     }
 

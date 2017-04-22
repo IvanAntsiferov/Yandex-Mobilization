@@ -15,6 +15,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 @InjectViewState
 public class HistoryPresenter extends MvpPresenter<HistoryView> {
 
@@ -24,6 +26,7 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
     @Inject
     TranslationUseCase mTranslations;
 
+    private List<Translation> mItems;
     private int mLastId = -1;
     private boolean mFilterFavorite = false;
 
@@ -62,35 +65,50 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
     }
 
     public void filterFavoritePressed() {
-
+        getViewState().hideEmpty();
+        mFilterFavorite = !mFilterFavorite;
+        getViewState().changeFilterFavoriteIcon(mFilterFavorite);
+        loadData();
     }
 
     // Private logic
     private void loadData() {
-        List<Translation> translations = mTranslations.getHistory();
-        if (translations.isEmpty()) {
-            getViewState().showEmpty();
+        mItems = mTranslations.getHistory(-1, mFilterFavorite);
+        Timber.d("loadData, size " + mItems.size());
+        if (mItems.isEmpty()) {
+            mLastId = -1;
+            if (mFilterFavorite) {
+                getViewState().showEmpty(mContext.getString(R.string.error_no_favorites));
+            } else {
+                getViewState().showEmpty(mContext.getString(R.string.error_no_history));
+            }
         } else {
-            mLastId = translations.get(0).getId();
-            getViewState().replaceData(translations);
+            mLastId = mItems.get(0).getId();
         }
+        getViewState().replaceData(mItems);
     }
 
     private void checkIfDataWasUpdated() {
-        List<Translation> translations = mTranslations.getHistoryNewerThan(mLastId);
+        List<Translation> translations = mTranslations.getHistory(mLastId, mFilterFavorite);
         if (!translations.isEmpty()) {
             mLastId = translations.get(0).getId();
+            mItems.addAll(0, translations);
             getViewState().hideEmpty();
-            getViewState().addData(translations);
+            getViewState().replaceData(mItems);
         } else if (mLastId == -1) {
-            getViewState().showEmpty();
+            if (mFilterFavorite) {
+                getViewState().showEmpty(mContext.getString(R.string.error_no_favorites));
+            } else {
+                getViewState().showEmpty(mContext.getString(R.string.error_no_history));
+            }
         }
     }
 
     private void wipeData() {
         mLastId = -1;
+        mItems.clear();
         mTranslations.wipeHistory();
         getViewState().replaceData(new ArrayList<>());
-        getViewState().showEmpty();
+        getViewState().showEmpty(mContext.getString(R.string.error_no_history));
     }
 }

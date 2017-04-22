@@ -12,9 +12,7 @@ public interface TranslationUseCase {
 
     void updateFavorites(Translation translation);
 
-    List<Translation> getHistory();
-
-    List<Translation> getHistoryNewerThan(int lastId);
+    List<Translation> getHistory(int newerThan, boolean onlyFavorites);
 
     void wipeHistory();
 }

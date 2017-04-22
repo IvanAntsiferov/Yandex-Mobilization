@@ -1,7 +1,6 @@
 package com.voltek.yandex.mobilization.ui.history;
 
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
-import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
@@ -15,11 +14,8 @@ public interface HistoryView extends BaseView {
     @StateStrategyType(AddToEndSingleStrategy.class)
     void replaceData(List<Translation> translations);
 
-    @StateStrategyType(AddToEndStrategy.class)
-    void addData(List<Translation> translations);
-
     @StateStrategyType(OneExecutionStateStrategy.class)
-    void showEmpty();
+    void showEmpty(String message);
 
     @StateStrategyType(SkipStrategy.class)
     void hideEmpty();
