@@ -113,6 +113,8 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
                         getViewState().showError(throwable.getMessage());
                     });
         } else {
+            mInput = mOutput = "";
+            getViewState().fillTextFields(mInput, mOutput);
             getViewState().showError(mContext.getString(R.string.error_input_short));
         }
     }

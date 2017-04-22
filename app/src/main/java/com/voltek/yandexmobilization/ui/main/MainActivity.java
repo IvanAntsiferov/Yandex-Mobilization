@@ -67,6 +67,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
         // TODO пофиксить удаление фрагментов
     }
 
@@ -115,7 +116,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
                 .beginTransaction()
                 .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                 .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
                 .commit();
     }
 }

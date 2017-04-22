@@ -78,9 +78,30 @@
                 style="@style/Text.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:maxLines="5"
+                android:paddingBottom="24dp"
                 android:textColor="#616161"
                 android:visibility="invisible" />
+
+            <ImageButton
+                android:id="@+id/ib_favorite"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_bookmark_border_24dp" />
+
+            <ImageButton
+                android:id="@+id/ib_fullscreen"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_fullscreen_24dp" />
 
         </RelativeLayout>
 

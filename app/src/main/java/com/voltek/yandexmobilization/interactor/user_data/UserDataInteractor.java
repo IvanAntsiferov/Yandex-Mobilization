@@ -19,8 +19,8 @@ public class UserDataInteractor implements UserDataUseCase {
 
     @Override
     public SelectedLanguages getSelectedLangs() {
-        // Default index's: translateApiRequest from 59 (russian), to 2 (english)
-        SelectedLanguages defaultValue = new SelectedLanguages(59, 2);
+        // Default index's: translateApiRequest from 60 (russian), to 3 (english)
+        SelectedLanguages defaultValue = new SelectedLanguages(60, 3);
         SelectedLanguages value = (SelectedLanguages) mUserDataRepo.getValue(UserDataKey.SELECTED_LANGUAGES, defaultValue);
         Timber.d("getSelectedLangs: from " + value.from() + " to " + value.to());
         return value;
