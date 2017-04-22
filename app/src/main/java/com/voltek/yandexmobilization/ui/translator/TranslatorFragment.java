@@ -52,6 +52,8 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     ImageButton mFavorite;
     @BindView(R.id.ib_fullscreen)
     ImageButton mFullscreen;
+    @BindView(R.id.ib_clear_input)
+    ImageButton mClearInput;
 
     // Lifecycle
     @Nullable
@@ -97,9 +99,12 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
         Disposable fullscreenButton = RxView.clicks(mFullscreen)
                 .subscribe(o -> mPresenter.fullscreenPressed(), Timber::e);
 
+        Disposable clearInputButton = RxView.clicks(mClearInput)
+                .subscribe(o -> mPresenter.clearInputPressed(), Timber::e);
+
         mDisposable.addAll(
                 swapLangsButton, spinnerFrom, spinnerTo, inputChanges, editorAction,
-                favoriteButton, fullscreenButton);
+                favoriteButton, fullscreenButton, clearInputButton);
     }
 
     @Override
@@ -172,6 +177,4 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
         dialog.show(fm, "dialog_translation_result");
         Timber.d(result);
     }
-
-    // TODO кнопка "очистить" для поля ввода
 }

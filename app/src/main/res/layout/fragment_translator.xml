@@ -40,18 +40,34 @@
         android:layout_below="@id/custom_toolbar"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/et_translate"
-            style="@style/Text.Medium"
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:hint="@string/translator_input_hint"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:padding="@dimen/translator_fragment_text_padding" />
+            android:padding="@dimen/translator_fragment_text_padding">
+
+            <EditText
+                android:id="@+id/et_translate"
+                style="@style/Text.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="@string/translator_input_hint"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:paddingBottom="24dp" />
+
+            <ImageButton
+                android:id="@+id/ib_clear_input"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_clear_24dp" />
+
+        </RelativeLayout>
 
         <View
             android:layout_width="2dp"

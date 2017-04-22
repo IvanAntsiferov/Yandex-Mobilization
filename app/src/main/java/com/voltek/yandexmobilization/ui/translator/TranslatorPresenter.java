@@ -99,19 +99,24 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
         if (isInputCorrect()) {
             translationRequest();
         } else {
-            mInput = mOutput = "";
-            getViewState().fillTextFields(mInput, mOutput);
+            wipeTextFields();
             getViewState().showError(mContext.getString(R.string.error_input_short));
         }
     }
 
-    public void favoritePressed(){
+    public void favoritePressed() {
         //
     }
 
     public void fullscreenPressed() {
         if (!mOutput.isEmpty())
             getViewState().openResultInDialog(mOutput);
+    }
+
+    public void clearInputPressed() {
+        if (!mInput.isEmpty() || !mOutput.isEmpty()) {
+            wipeTextFields();
+        }
     }
 
     // Private logic
@@ -131,6 +136,11 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
                 }, throwable -> {
                     getViewState().showError(throwable.getMessage());
                 });
+    }
+
+    private void wipeTextFields() {
+        mInput = mOutput = "";
+        getViewState().fillTextFields(mInput, mOutput);
     }
 
     private void swapSelection() {

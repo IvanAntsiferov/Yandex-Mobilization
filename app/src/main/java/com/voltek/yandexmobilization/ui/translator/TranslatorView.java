@@ -31,7 +31,7 @@ public interface TranslatorView extends BaseView {
     @StateStrategyType(OneExecutionStateStrategy.class)
     void hideError();
 
-    @StateStrategyType(AddToEndSingleStrategy.class)
+    @StateStrategyType(OneExecutionStateStrategy.class)
     void fillTextFields(String from, String to);
 
     @StateStrategyType(SkipStrategy.class)
