@@ -27,6 +27,7 @@ import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
+import static android.R.attr.value;
 import static android.view.View.GONE;
 
 public class TranslatorFragment extends BaseFragment implements TranslatorView {
@@ -60,11 +61,6 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_translator, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override

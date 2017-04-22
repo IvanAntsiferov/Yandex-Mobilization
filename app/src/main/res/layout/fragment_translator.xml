@@ -47,7 +47,7 @@
             android:layout_weight="1"
             android:padding="@dimen/translator_fragment_text_padding">
 
-            <EditText
+            <com.voltek.yandex.mobilization.ui.MultilineEditText
                 android:id="@+id/et_translate"
                 style="@style/Text.Medium"
                 android:layout_width="match_parent"
@@ -56,7 +56,6 @@
                 android:gravity="center"
                 android:hint="@string/translator_input_hint"
                 android:imeOptions="actionDone"
-                android:inputType="textMultiLine"
                 android:lines="@integer/translator_fragment_result_max_lines"
                 android:maxLength="9999"
                 android:paddingBottom="24dp"
