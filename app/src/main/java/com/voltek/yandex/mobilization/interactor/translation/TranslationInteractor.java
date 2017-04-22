@@ -2,7 +2,10 @@ package com.voltek.yandex.mobilization.interactor.translation;
 
 import com.voltek.yandex.mobilization.TranslatorApp;
 import com.voltek.yandex.mobilization.data.DataProvider;
-import com.voltek.yandex.mobilization.data.entity.Translation;
+import com.voltek.yandex.mobilization.entity.Mapper;
+import com.voltek.yandex.mobilization.entity.general.Translation;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -24,7 +27,9 @@ public class TranslationInteractor implements com.voltek.yandex.mobilization.int
     @Override
     public Observable<Translation> translate(String text, int fromId, int toId) {
         return Observable.create(emitter -> {
-            String translationDirection = mLangsRepo.makeTranslationDirectionStr(fromId, toId);
+            String from = mLangsRepo.getLangCodeByIndex(fromId);
+            String to = mLangsRepo.getLangCodeByIndex(toId);
+            String translationDirection = Mapper.makeTranslationDirectionString(from, to);
 
             Translation fromCache =
                     mTranslationsRepo.searchTranslationInCache(text, translationDirection);
@@ -46,5 +51,10 @@ public class TranslationInteractor implements com.voltek.yandex.mobilization.int
     @Override
     public void updateFavorites(Translation translation) {
         mTranslationsRepo.updateTranslationInCache(translation);
+    }
+
+    @Override
+    public List<Translation> getHistory() {
+        return mTranslationsRepo.getCache();
     }
 }

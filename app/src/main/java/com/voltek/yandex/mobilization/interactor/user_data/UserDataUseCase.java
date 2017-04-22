@@ -1,6 +1,6 @@
 package com.voltek.yandex.mobilization.interactor.user_data;
 
-import com.voltek.yandex.mobilization.data.entity.SelectedLanguages;
+import com.voltek.yandex.mobilization.entity.presentation.SelectedLanguages;
 
 public interface UserDataUseCase {
 

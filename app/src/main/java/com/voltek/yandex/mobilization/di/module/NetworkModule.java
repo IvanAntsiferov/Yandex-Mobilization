@@ -1,6 +1,6 @@
 package com.voltek.yandex.mobilization.di.module;
 
-import com.voltek.yandex.mobilization.networking.YandexTranslateAPI;
+import com.voltek.yandex.mobilization.data.networking.YandexTranslateAPI;
 
 import javax.inject.Singleton;
 

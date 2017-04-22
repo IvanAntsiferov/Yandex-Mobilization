@@ -1,7 +1,7 @@
 package com.voltek.yandex.mobilization.data;
 
-import com.voltek.yandex.mobilization.data.entity.Language;
-import com.voltek.yandex.mobilization.data.entity.Translation;
+import com.voltek.yandex.mobilization.entity.data.Language;
+import com.voltek.yandex.mobilization.entity.general.Translation;
 
 import java.util.List;
 
@@ -21,7 +21,10 @@ public final class DataProvider {
          */
         List<Language> get();
 
-        String makeTranslationDirectionStr(int from, int to);
+        /**
+         * @return lang code by provided index, e.g. "en", "de", "fr"
+         */
+        String getLangCodeByIndex(int index);
     }
 
     public interface UserData {
@@ -51,6 +54,10 @@ public final class DataProvider {
          */
         Observable<Translation> translateApiRequest(String text, String langs);
 
+        /**
+         * Search, if translation already exists in cache
+         * by its text and translation direction languages.
+         */
         Translation searchTranslationInCache(String text, String langs);
 
         /**
@@ -63,5 +70,7 @@ public final class DataProvider {
          * Updates currently existing translation by its unique id
          */
         void updateTranslationInCache(Translation translation);
+
+        List<Translation> getCache();
     }
 }

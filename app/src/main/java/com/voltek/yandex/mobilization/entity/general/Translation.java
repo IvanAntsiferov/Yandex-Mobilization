@@ -1,8 +1,12 @@
-package com.voltek.yandex.mobilization.data.entity;
+package com.voltek.yandex.mobilization.entity.general;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
+/**
+ * Common class.
+ * Get used by repository and presenter without transformation.
+ */
 public class Translation extends RealmObject {
 
     @PrimaryKey

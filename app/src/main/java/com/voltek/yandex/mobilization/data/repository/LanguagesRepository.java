@@ -1,7 +1,7 @@
 package com.voltek.yandex.mobilization.data.repository;
 
 import com.voltek.yandex.mobilization.data.DataProvider;
-import com.voltek.yandex.mobilization.data.entity.Language;
+import com.voltek.yandex.mobilization.entity.data.Language;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +14,8 @@ public class LanguagesRepository implements DataProvider.Languages {
     }
 
     @Override
-    public String makeTranslationDirectionStr(int from, int to) {
-        List<Language> langs = hardcodedLanguages();
-        return langs.get(from).getCode() + "-" + langs.get(to).getCode();
+    public String getLangCodeByIndex(int index) {
+        return hardcodedLanguages().get(index).getCode();
     }
 
     private List<Language> hardcodedLanguages() {

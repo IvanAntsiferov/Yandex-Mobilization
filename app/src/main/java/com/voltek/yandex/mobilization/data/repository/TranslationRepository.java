@@ -8,15 +8,18 @@ import com.voltek.yandex.mobilization.BuildConfig;
 import com.voltek.yandex.mobilization.R;
 import com.voltek.yandex.mobilization.TranslatorApp;
 import com.voltek.yandex.mobilization.data.DataProvider;
-import com.voltek.yandex.mobilization.data.entity.Translation;
-import com.voltek.yandex.mobilization.networking.YandexTranslateAPI;
-import com.voltek.yandex.mobilization.networking.entity.TranslateResponse;
+import com.voltek.yandex.mobilization.entity.general.Translation;
+import com.voltek.yandex.mobilization.data.networking.YandexTranslateAPI;
+import com.voltek.yandex.mobilization.entity.network.TranslateResponse;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import retrofit2.Response;
 import timber.log.Timber;
 
@@ -44,6 +47,7 @@ public class TranslationRepository implements DataProvider.Translations {
                         mApi.translate(BuildConfig.API_KEY, text, langs).execute();
 
                 if (response.isSuccessful()) {
+                    Timber.d("translateApiRequest: " + response.body().text.toString());
                     String outText = response.body().text.get(0);
                     Translation translation =
                             new Translation(-1, response.body().lang, text, outText, false);
@@ -149,5 +153,19 @@ public class TranslationRepository implements DataProvider.Translations {
             Timber.e("Update failed: Translation was not found in Realm");
         }
         realm.close();
+    }
+
+    @Override
+    public List<Translation> getCache() {
+        Realm realm = Realm.getDefaultInstance();
+
+        RealmResults<Translation> results = realm
+                .where(Translation.class)
+                .findAll();
+        results = results.sort("id", Sort.DESCENDING);
+        List<Translation> cache = realm.copyFromRealm(results);
+
+        realm.close();
+        return cache;
     }
 }

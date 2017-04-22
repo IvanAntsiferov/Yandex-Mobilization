@@ -1,4 +1,4 @@
-package com.voltek.yandex.mobilization.data.entity;
+package com.voltek.yandex.mobilization.entity.data;
 
 public class Language {
 

@@ -1,7 +1,10 @@
-package com.voltek.yandex.mobilization.networking.entity;
+package com.voltek.yandex.mobilization.entity.network;
 
 import java.util.List;
 
+/**
+ * Yandex translator api response.
+ */
 public class TranslateResponse {
 
     public String code;

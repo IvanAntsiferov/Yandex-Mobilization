@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.voltek.yandex.mobilization.R;
-import com.voltek.yandex.mobilization.data.entity.Translation;
+import com.voltek.yandex.mobilization.entity.general.Translation;
 
 import java.util.List;
 
