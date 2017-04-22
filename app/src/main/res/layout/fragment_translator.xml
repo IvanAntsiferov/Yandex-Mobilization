@@ -80,7 +80,7 @@
                 android:layout_height="match_parent"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:maxLines="5"
+                android:maxLines="@integer/translator_fragment_result_max_lines"
                 android:paddingBottom="24dp"
                 android:textColor="#616161"
                 android:visibility="invisible" />

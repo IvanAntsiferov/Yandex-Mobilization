@@ -17,6 +17,10 @@
         <item name="android:textAppearance">?android:textAppearanceMedium</item>
     </style>
 
+    <style name="Text.Medium.Light">
+        <item name="fontPath">fonts/Roboto-Light.ttf</item>
+    </style>
+
     <style name="Text.Large">
         <item name="android:textAppearance">?android:textAppearanceLarge</item>
     </style>

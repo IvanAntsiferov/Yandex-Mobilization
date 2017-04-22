@@ -2,6 +2,7 @@ package com.voltek.yandexmobilization.ui.translator;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,10 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     ProgressBar mProgressBar;
     @BindView(R.id.tv_error)
     TextView mErrorView;
+    @BindView(R.id.ib_favorite)
+    ImageButton mFavorite;
+    @BindView(R.id.ib_fullscreen)
+    ImageButton mFullscreen;
 
     // Lifecycle
     @Nullable
@@ -86,7 +91,15 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
         Disposable editorAction = RxTextView.editorActions(mEditText)
                 .subscribe(integer -> mPresenter.editTextAction(), Timber::e);
 
-        mDisposable.addAll(swapLangsButton, spinnerFrom, spinnerTo, inputChanges, editorAction);
+        Disposable favoriteButton = RxView.clicks(mFavorite)
+                .subscribe(o -> mPresenter.favoritePressed(), Timber::e);
+
+        Disposable fullscreenButton = RxView.clicks(mFullscreen)
+                .subscribe(o -> mPresenter.fullscreenPressed(), Timber::e);
+
+        mDisposable.addAll(
+                swapLangsButton, spinnerFrom, spinnerTo, inputChanges, editorAction,
+                favoriteButton, fullscreenButton);
     }
 
     @Override
@@ -151,4 +164,14 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     public void hideResults() {
         mResult.setVisibility(GONE);
     }
+
+    @Override
+    public void openResultInDialog(String result) {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        TranslationResultDialog dialog = TranslationResultDialog.newInstance(result);
+        dialog.show(fm, "dialog_translation_result");
+        Timber.d(result);
+    }
+
+    // TODO кнопка "очистить" для поля ввода
 }

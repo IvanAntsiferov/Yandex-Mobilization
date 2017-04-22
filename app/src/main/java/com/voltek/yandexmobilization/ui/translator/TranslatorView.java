@@ -36,4 +36,7 @@ public interface TranslatorView extends BaseView {
 
     @StateStrategyType(SkipStrategy.class)
     void hideResults();
+
+    @StateStrategyType(SkipStrategy.class)
+    void openResultInDialog(String result);
 }

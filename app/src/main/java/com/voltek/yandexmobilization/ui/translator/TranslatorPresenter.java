@@ -97,21 +97,7 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
         getViewState().hideResults();
 
         if (isInputCorrect()) {
-            mTranslation.translate(mInput, mSelectedFrom, mSelectedTo)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe(disposable -> {
-                        getViewState().showLoading();
-                    })
-                    .doFinally(() -> {
-                        getViewState().hideLoading();
-                    })
-                    .subscribe(translation -> {
-                        mOutput = translation.getToText();
-                        getViewState().showTranslationResult(mOutput);
-                    }, throwable -> {
-                        getViewState().showError(throwable.getMessage());
-                    });
+            translationRequest();
         } else {
             mInput = mOutput = "";
             getViewState().fillTextFields(mInput, mOutput);
@@ -119,7 +105,34 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
         }
     }
 
+    public void favoritePressed(){
+        //
+    }
+
+    public void fullscreenPressed() {
+        if (!mOutput.isEmpty())
+            getViewState().openResultInDialog(mOutput);
+    }
+
     // Private logic
+    private void translationRequest() {
+        mTranslation.translate(mInput, mSelectedFrom, mSelectedTo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(disposable -> {
+                    getViewState().showLoading();
+                })
+                .doFinally(() -> {
+                    getViewState().hideLoading();
+                })
+                .subscribe(translation -> {
+                    mOutput = translation.getToText();
+                    getViewState().showTranslationResult(mOutput);
+                }, throwable -> {
+                    getViewState().showError(throwable.getMessage());
+                });
+    }
+
     private void swapSelection() {
         Timber.d("swapSelection");
         int temp = mSelectedFrom;
@@ -142,6 +155,6 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
     }
 
     private boolean isInputCorrect() {
-        return !mInput.isEmpty();
+        return !mInput.isEmpty() && mInput.length() < 10000;
     }
 }
