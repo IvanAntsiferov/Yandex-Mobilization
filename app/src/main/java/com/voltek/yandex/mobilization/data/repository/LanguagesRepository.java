@@ -15,6 +15,7 @@ public class LanguagesRepository implements DataProvider.Languages {
         return hardcodedLanguages();
     }
 
+    // TODO обработать IndexOutOfBoundsException
     @Override
     public String getLangCodeByIndex(int index) {
         return hardcodedLanguages().get(index).getCode();
