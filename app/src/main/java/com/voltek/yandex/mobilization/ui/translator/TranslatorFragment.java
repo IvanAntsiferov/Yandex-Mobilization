@@ -24,10 +24,10 @@ import com.voltek.yandex.mobilization.ui.BaseFragment;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
-import static android.R.attr.value;
 import static android.view.View.GONE;
 
 public class TranslatorFragment extends BaseFragment implements TranslatorView {
@@ -50,11 +50,13 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     @BindView(R.id.tv_error)
     TextView mErrorView;
     @BindView(R.id.ib_favorite)
-    ImageButton mFavorite;
+    ImageButton mButtonFavorite;
     @BindView(R.id.ib_fullscreen)
-    ImageButton mFullscreen;
+    ImageButton mButtonFullscreen;
     @BindView(R.id.ib_clear_input)
-    ImageButton mClearInput;
+    ImageButton mButtonClearInput;
+    @BindView(R.id.ib_translate)
+    ImageButton mButtonTranslate;
 
     // Lifecycle
     @Nullable
@@ -86,20 +88,21 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
                 .skip(1) // First always empty
                 .subscribe(charSequence -> mPresenter.inputChanges(charSequence.toString()), Timber::e);
 
-        Disposable editorAction = RxTextView.editorActions(mEditText)
-                .subscribe(integer -> mPresenter.editTextAction(), Timber::e);
-
-        Disposable favoriteButton = RxView.clicks(mFavorite)
+        Disposable favoriteButton = RxView.clicks(mButtonFavorite)
                 .subscribe(o -> mPresenter.favoritePressed(), Timber::e);
 
-        Disposable fullscreenButton = RxView.clicks(mFullscreen)
+        Disposable fullscreenButton = RxView.clicks(mButtonFullscreen)
                 .subscribe(o -> mPresenter.fullscreenPressed(), Timber::e);
 
-        Disposable clearInputButton = RxView.clicks(mClearInput)
+        Disposable clearInputButton = RxView.clicks(mButtonClearInput)
                 .subscribe(o -> mPresenter.clearInputPressed(), Timber::e);
 
+        Disposable translationRequest = Observable
+                .mergeDelayError(RxView.clicks(mButtonTranslate), RxTextView.editorActions(mEditText))
+                .subscribe(o -> mPresenter.translateAction(), Timber::e);
+
         mDisposable.addAll(
-                swapLangsButton, spinnerFrom, spinnerTo, inputChanges, editorAction,
+                swapLangsButton, spinnerFrom, spinnerTo, inputChanges, translationRequest,
                 favoriteButton, fullscreenButton, clearInputButton);
     }
 
@@ -180,9 +183,9 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     @Override
     public void setFavoriteIcon(boolean isFavorite) {
         if (isFavorite) {
-            mFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_bookmark_24dp));
+            mButtonFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_bookmark_24dp));
         } else {
-            mFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_bookmark_border_24dp));
+            mButtonFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_bookmark_border_24dp));
         }
     }
 }

@@ -98,7 +98,7 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
         getViewState().hideMessage();
     }
 
-    public void editTextAction() {
+    public void translateAction() {
         getViewState().hideResults();
 
         if (isInputCorrect()) {
