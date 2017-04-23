@@ -178,7 +178,10 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
     @Override
     public void changeSearchFieldText(String text) {
         mEditTextSearch.setText(text);
-        // Hide soft keyboard
+    }
+
+    @Override
+    public void hideSoftKeyboard() {
         InputMethodManager imm =
                 (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mEditTextSearch.getWindowToken(), 0);

@@ -74,16 +74,15 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
     }
 
     public void searchButtonPressed() {
-        if (!mSearchQuery.isEmpty())
-            loadData();
+        loadData();
+        getViewState().hideSoftKeyboard();
     }
 
     public void clearSearchButtonPressed() {
-        if (!mSearchQuery.isEmpty()) {
-            mSearchQuery = "";
-            getViewState().changeSearchFieldText(mSearchQuery);
-            loadData();
-        }
+        mSearchQuery = "";
+        getViewState().changeSearchFieldText(mSearchQuery);
+        loadData();
+        getViewState().hideSoftKeyboard();
     }
 
     public void searchQueryChanges(String newValue) {

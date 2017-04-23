@@ -31,4 +31,7 @@ public interface HistoryView extends BaseView {
 
     @StateStrategyType(OneExecutionStateStrategy.class)
     void changeSearchFieldText(String text);
+
+    @StateStrategyType(SkipStrategy.class)
+    void hideSoftKeyboard();
 }
