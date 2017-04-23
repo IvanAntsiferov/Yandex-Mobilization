@@ -1,5 +1,6 @@
 package com.voltek.yandex.mobilization.ui.history;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -59,7 +61,6 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // TODO при нажатии на айтем открывать диалог с подробностями о переводе в отдельном окне
         mAdapter = new TranslationAdapter(getContext(), new ArrayList<>());
         return inflater.inflate(R.layout.fragment_history, container, false);
     }
@@ -105,9 +106,15 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
                         charSequence -> mPresenter.searchQueryChanges(charSequence.toString()),
                         Timber::e);
 
+        Disposable onItemClick = mAdapter.getClickedItem()
+                .subscribe(translation -> mPresenter.onItemClick(translation), Timber::e);
+
+        Disposable onItemFavoriteClick = mAdapter.getFavoriteClickedItem()
+                .subscribe(translation -> mPresenter.onItemFavoriteClick(translation), Timber::e);
+
         mDisposable.addAll(
                 buttonDelete, buttonFilterFavorite, buttonSearch, buttonClear,
-                editTextAction, inputChanges);
+                editTextAction, inputChanges, onItemClick, onItemFavoriteClick);
     }
 
     @Override
@@ -171,5 +178,9 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
     @Override
     public void changeSearchFieldText(String text) {
         mEditTextSearch.setText(text);
+        // Hide soft keyboard
+        InputMethodManager imm =
+                (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mEditTextSearch.getWindowToken(), 0);
     }
 }

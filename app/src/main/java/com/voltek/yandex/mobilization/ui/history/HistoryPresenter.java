@@ -90,6 +90,15 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
         mSearchQuery = newValue;
     }
 
+    public void onItemClick(Translation translation) {
+        // TODO open dialog with details
+    }
+
+    public void onItemFavoriteClick(Translation translation) {
+        translation.setFavorite(!translation.getFavorite());
+        mTranslations.updateFavorites(translation);
+    }
+
     // Private logic
     private void loadData() {
         getViewState().hideEmpty();
