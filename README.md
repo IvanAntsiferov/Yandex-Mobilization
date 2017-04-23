@@ -29,4 +29,5 @@
 * [Timber](https://github.com/JakeWharton/timber)
 * [ButterKnife](https://github.com/JakeWharton/butterknife)
 * [Retrolambda](https://github.com/evant/gradle-retrolambda)
+* [Calligraphy](https://github.com/chrisjenx/Calligraphy)
 * [Hawk](https://github.com/orhanobut/hawk)
