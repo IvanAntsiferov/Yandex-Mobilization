@@ -38,7 +38,7 @@ public interface TranslatorView extends BaseView {
     void hideResults();
 
     @StateStrategyType(SkipStrategy.class)
-    void openResultInDialog(String result);
+    void openResultInDialog(String fromText, String toText, String fromLang, String toLang);
 
     @StateStrategyType(OneExecutionStateStrategy.class)
     void setFavoriteIcon(boolean isFavorite);

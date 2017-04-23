@@ -25,6 +25,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.voltek.yandex.mobilization.R;
 import com.voltek.yandex.mobilization.entity.general.Translation;
 import com.voltek.yandex.mobilization.ui.BaseFragment;
+import com.voltek.yandex.mobilization.ui.translation_details_dialog.TranslationDetailsDialog;
 
 import java.util.ArrayList;
 import java.util.List;

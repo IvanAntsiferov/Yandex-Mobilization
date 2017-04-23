@@ -8,6 +8,7 @@ import com.voltek.yandex.mobilization.R;
 import com.voltek.yandex.mobilization.TranslatorApp;
 import com.voltek.yandex.mobilization.entity.presentation.SelectedLanguages;
 import com.voltek.yandex.mobilization.entity.general.Translation;
+import com.voltek.yandex.mobilization.entity.presentation.TranslationDirection;
 import com.voltek.yandex.mobilization.interactor.language.LanguageUseCase;
 import com.voltek.yandex.mobilization.interactor.translation.TranslationUseCase;
 import com.voltek.yandex.mobilization.interactor.user_data.UserDataUseCase;
@@ -118,8 +119,13 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
     }
 
     public void fullscreenPressed() {
-        if (!mOutput.isEmpty())
-            getViewState().openResultInDialog(mOutput);
+        if (!mOutput.isEmpty() && mLastLoadedTranslation != null) {
+            TranslationDirection direction =
+                    mLanguages.getDirectionNames(mLastLoadedTranslation.getLangs());
+            getViewState().openResultInDialog(
+                    mLastLoadedTranslation.getFromText(), mLastLoadedTranslation.getToText(),
+                    direction.getFromLang(), direction.getToLang());
+        }
     }
 
     public void clearInputPressed() {
@@ -157,6 +163,7 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
     }
 
     private void wipeTextFields() {
+        mLastLoadedTranslation = null;
         mIsFavorite = false;
         mInput = mOutput = "";
         getViewState().fillTextFields(mInput, mOutput, mIsFavorite);

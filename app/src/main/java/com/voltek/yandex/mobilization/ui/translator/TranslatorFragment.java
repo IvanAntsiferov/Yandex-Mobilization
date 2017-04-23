@@ -22,6 +22,7 @@ import com.jakewharton.rxbinding2.widget.RxAdapterView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.voltek.yandex.mobilization.R;
 import com.voltek.yandex.mobilization.ui.BaseFragment;
+import com.voltek.yandex.mobilization.ui.translation_details_dialog.TranslationDetailsDialog;
 
 import java.util.List;
 
@@ -177,11 +178,10 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     }
 
     @Override
-    public void openResultInDialog(String result) {
+    public void openResultInDialog(String fromText, String toText, String fromLang, String toLang) {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        TranslationResultDialog dialog = TranslationResultDialog.newInstance(result);
+        TranslationDetailsDialog dialog = TranslationDetailsDialog.newInstance(fromText, toText, fromLang, toLang);
         dialog.show(fm, "dialog_translation_result");
-        Timber.d(result);
     }
 
     @Override

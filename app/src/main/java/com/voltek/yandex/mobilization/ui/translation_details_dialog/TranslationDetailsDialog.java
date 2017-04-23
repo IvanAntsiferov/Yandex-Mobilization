@@ -1,4 +1,4 @@
-package com.voltek.yandex.mobilization.ui.history;
+package com.voltek.yandex.mobilization.ui.translation_details_dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,17 +7,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.PresenterType;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.voltek.yandex.mobilization.R;
 import com.voltek.yandex.mobilization.ui.BaseDialogFragment;
 
 import butterknife.BindView;
 
-public class TranslationDetailsDialog extends BaseDialogFragment {
+public class TranslationDetailsDialog extends BaseDialogFragment implements TranslationDetailsDialogView {
 
     private final static String ARG_FROM_TEXT = "ARG_FROM_TEXT";
     private final static String ARG_TO_TEXT = "ARG_TO_TEXT";
     private final static String ARG_FROM_LANG = "ARG_FROM_LANG";
     private final static String ARG_TO_LANG = "ARG_TO_LANG";
+
+    @InjectPresenter(type = PresenterType.LOCAL, tag = "TranslationDetailsDialog")
+    TranslationDetailsDialogPresenter mPresenter;
+
+    @ProvidePresenter(type = PresenterType.LOCAL, tag = "TranslationDetailsDialog")
+    TranslationDetailsDialogPresenter providePresenter() {
+        String fromText = getArguments().getString(ARG_FROM_TEXT);
+        String toText = getArguments().getString(ARG_TO_TEXT);
+        String fromLang = getArguments().getString(ARG_FROM_LANG);
+        String toLang = getArguments().getString(ARG_TO_LANG);
+        return new TranslationDetailsDialogPresenter(fromText, toText, fromLang, toLang);
+    }
 
     @BindView(R.id.tv_from)
     TextView mTvFromText;
@@ -44,6 +59,7 @@ public class TranslationDetailsDialog extends BaseDialogFragment {
         return fragment;
     }
 
+    // Lifecycle
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.dialog_translation_details, container);
@@ -60,5 +76,17 @@ public class TranslationDetailsDialog extends BaseDialogFragment {
         mTvToText.setText(toText);
         mTvLangFrom.setText(fromLang);
         mTvLangTo.setText(toLang);
+    }
+
+    // View interface
+    @Override
+    public void attachInputListeners() {}
+
+    @Override
+    public void detachInputListeners() {}
+
+    @Override
+    public void showContent(String fromText, String toText, String fromLang, String toLang) {
+
     }
 }
