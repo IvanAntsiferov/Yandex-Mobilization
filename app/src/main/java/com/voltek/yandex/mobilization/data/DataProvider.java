@@ -25,6 +25,12 @@ public final class DataProvider {
          * @return lang code by provided index, e.g. "en", "de", "fr"
          */
         String getLangCodeByIndex(int index);
+
+        /**
+         * @param code "en", "de", "fr"
+         * @return lang name by provided code, e.g. for "en" it will be "english"
+         */
+        String getLangNameByCode(String code);
     }
 
     public interface UserData {

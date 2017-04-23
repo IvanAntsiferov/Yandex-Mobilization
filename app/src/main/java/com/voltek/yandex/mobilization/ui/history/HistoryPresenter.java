@@ -8,6 +8,8 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.voltek.yandex.mobilization.R;
 import com.voltek.yandex.mobilization.TranslatorApp;
 import com.voltek.yandex.mobilization.entity.general.Translation;
+import com.voltek.yandex.mobilization.entity.presentation.TranslationDirection;
+import com.voltek.yandex.mobilization.interactor.language.LanguageUseCase;
 import com.voltek.yandex.mobilization.interactor.translation.TranslationUseCase;
 
 import java.util.ArrayList;
@@ -25,6 +27,9 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
 
     @Inject
     TranslationUseCase mTranslations;
+
+    @Inject
+    LanguageUseCase mLanguages;
 
     private List<Translation> mItems = new ArrayList<>();
     private int mLastId = -1;
@@ -90,8 +95,10 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
     }
 
     public void onItemClick(Translation translation) {
-        // TODO fix langs
-        getViewState().openTranslationInDialog(translation.getFromText(), translation.getToText(), "", "");
+        TranslationDirection direction = mLanguages.getDirectionNames(translation.getLangs());
+        getViewState().openTranslationInDialog(
+                translation.getFromText(), translation.getToText(),
+                direction.getFromLang(), direction.getToLang());
     }
 
     public void onItemFavoriteClick(Translation translation) {

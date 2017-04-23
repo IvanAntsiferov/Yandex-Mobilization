@@ -1,5 +1,7 @@
 package com.voltek.yandex.mobilization.data.repository;
 
+import android.support.annotation.Nullable;
+
 import com.voltek.yandex.mobilization.data.DataProvider;
 import com.voltek.yandex.mobilization.entity.data.Language;
 
@@ -113,5 +115,16 @@ public class LanguagesRepository implements DataProvider.Languages {
         languages.add(new Language("японский", "ja"));
 
         return languages;
+    }
+
+    @Override
+    @Nullable
+    public String getLangNameByCode(String code) {
+        for (Language language : hardcodedLanguages()) {
+            if (language.getCode().equals(code)) {
+                return language.getName();
+            }
+        }
+        return null;
     }
 }

@@ -1,5 +1,7 @@
 package com.voltek.yandex.mobilization.entity;
 
+import android.support.annotation.Nullable;
+
 import com.voltek.yandex.mobilization.entity.data.Language;
 
 import java.io.UnsupportedEncodingException;
@@ -35,6 +37,7 @@ public final class Mapper {
         return from + "-" + to;
     }
 
+    @Nullable
     public static String stringUrlEncode(String text) {
         try {
             return URLEncoder.encode(text, "UTF-8");

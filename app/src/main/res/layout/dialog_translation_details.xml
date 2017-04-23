@@ -19,7 +19,9 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/grey_md700" />
+            android:layout_marginTop="4dp"
+            android:background="@color/grey_md700"
+            android:padding="4dp" />
 
         <TextView
             android:id="@+id/tv_from"
@@ -28,15 +30,16 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_marginTop="16dp"
             android:id="@+id/tv_lang_to"
             style="@style/Text.Medium.Bold"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
+            android:layout_marginTop="4dp"
             android:background="@color/grey_md700" />
 
         <TextView
