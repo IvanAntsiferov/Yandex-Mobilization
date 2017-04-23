@@ -26,8 +26,6 @@
 
         </activity>
 
-        <activity android:name=".ui.intro.IntroActivity" />
-
     </application>
 
 </manifest>
