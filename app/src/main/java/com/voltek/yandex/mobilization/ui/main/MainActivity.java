@@ -1,20 +1,16 @@
 package com.voltek.yandex.mobilization.ui.main;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.PresenterType;
 import com.jakewharton.rxbinding2.support.design.widget.RxBottomNavigationView;
 import com.voltek.yandex.mobilization.R;
-import com.voltek.yandex.mobilization.TranslatorApp;
 import com.voltek.yandex.mobilization.navigation.command.CommandReplaceFragment;
-import com.voltek.yandex.mobilization.navigation.proxy.Navigator;
 import com.voltek.yandex.mobilization.navigation.proxy.NavigatorCommand;
 import com.voltek.yandex.mobilization.ui.BaseActivity;
 import com.voltek.yandex.mobilization.ui.history.HistoryFragment;
@@ -23,10 +19,8 @@ import com.voltek.yandex.mobilization.ui.translator.TranslatorFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends BaseActivity implements MainView {
 
@@ -40,7 +34,6 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Timber.d("onCreate");
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
     }
@@ -48,7 +41,6 @@ public class MainActivity extends BaseActivity implements MainView {
     // View interface related
     @Override
     public void attachInputListeners() {
-        Timber.d("attachInputListeners");
         Disposable bottomNavigation = RxBottomNavigationView.itemSelections(mBottomNav)
                 .skip(1) // Skipping first emitted element because of auto select position 0
                 .subscribe(menuItem -> mPresenter.bottomNavigationClick(menuItem), Timber::e);
@@ -58,13 +50,11 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     public void detachInputListeners() {
-        Timber.d("detachInputListeners");
         mDisposable.clear();
     }
 
     @Override
     public void selectFragmentId(int id) {
-        Timber.d("selectFragmentAtIndex " + id);
         mBottomNav.setSelectedItemId(id);
     }
 
@@ -81,7 +71,6 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     private void replaceFragment(int index, int previousIndex) {
-        Timber.d("replaceFragment, index: " + index);
         Fragment fragment;
         FragmentTransaction fts = getSupportFragmentManager().beginTransaction();
 

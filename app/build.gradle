@@ -46,7 +46,6 @@ ext {
     espressoVersion = '2.2.2'
     junitVersion = '4.12'
     robolectricVersion = '3.3.2'
-    mockitoVersion = '2.7.22'
 }
 
 dependencies {
@@ -58,7 +57,6 @@ dependencies {
     })
     testCompile "junit:junit:${junitVersion}"
     testCompile "org.robolectric:robolectric:${robolectricVersion}"
-    testCompile "org.mockito:mockito-core:${mockitoVersion}"
 
     // Android support lib
     compile "com.android.support:appcompat-v7:${supportLibraryVersion}"

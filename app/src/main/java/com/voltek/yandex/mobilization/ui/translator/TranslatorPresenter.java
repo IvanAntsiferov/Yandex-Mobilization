@@ -17,7 +17,6 @@ import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 @InjectViewState
 public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
@@ -48,7 +47,6 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
         SelectedLanguages selectedLanguages = mUserData.getSelectedLangs();
         mSelectedFrom = selectedLanguages.from();
         mSelectedTo = selectedLanguages.to();
-        Timber.d("TranslatorPresenter: from " + mSelectedFrom + " to " + mSelectedTo);
     }
 
     // View lifecycle
@@ -72,7 +70,6 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
     }
 
     public void selectorFrom(int index) {
-        Timber.d("selectorFrom: " + index);
         // Prevent from selected same language in both fields
         if (index == mSelectedTo) {
             swapSelection();
@@ -83,7 +80,6 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
     }
 
     public void selectorTo(int index) {
-        Timber.d("selectorTo: " + index);
         // Swap langs, if user tries to select same langs in both fields
         if (index == mSelectedFrom) {
             swapSelection();
@@ -169,7 +165,6 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
     }
 
     private void swapSelection() {
-        Timber.d("swapSelection");
         int temp = mSelectedFrom;
         mSelectedFrom = mSelectedTo;
         mSelectedTo = temp;

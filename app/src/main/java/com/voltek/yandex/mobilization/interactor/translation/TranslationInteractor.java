@@ -43,12 +43,12 @@ public class TranslationInteractor implements com.voltek.yandex.mobilization.int
                     mTranslationsRepo.searchTranslationInCache(text, translationDirection);
 
             if (fromCache == null) {
+                // Make API request
                 mTranslationsRepo.translateApiRequest(text, translationDirection)
                         .doOnNext(translation -> mTranslationsRepo.addTranslationToCache(translation))
                         .doFinally(emitter::onComplete)
                         .subscribe(emitter::onNext, emitter::onError);
             } else {
-                Timber.d("translate, return cache with id " + fromCache.getId());
                 // Return cache
                 emitter.onNext(fromCache);
                 emitter.onComplete();

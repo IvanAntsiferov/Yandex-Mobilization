@@ -54,7 +54,6 @@ public class TranslationRepository implements DataProvider.Translations {
                         mApi.translate(BuildConfig.API_KEY, encodedString, langs).execute();
 
                 if (response.isSuccessful()) {
-                    Timber.d(response.raw().request().url().toString());
                     String outText = response.body().text.get(0);
                     Translation translation =
                             new Translation(-1, response.body().lang, text, outText, false);
@@ -128,7 +127,6 @@ public class TranslationRepository implements DataProvider.Translations {
                 // If there is first item, being added to cache, give it id = 0
                 nextID = 0;
             }
-            Timber.d("addTranslationToCache, with id " + nextID);
 
             translation.setId(nextID);
             realm.copyToRealm(translation);
@@ -155,7 +153,6 @@ public class TranslationRepository implements DataProvider.Translations {
             realm.beginTransaction();
             cached.setFavorite(translation.getFavorite());
             realm.commitTransaction();
-            Timber.d("updateTranslationInCache, with id " + translation.getId() + " set favorite to " + translation.getFavorite());
         } else {
             Timber.e("Update failed: Translation was not found in Realm");
         }
@@ -187,9 +184,6 @@ public class TranslationRepository implements DataProvider.Translations {
         RealmResults<Translation> results = query.findAll();
         results = results.sort("id", Sort.DESCENDING);
         List<Translation> cache = realm.copyFromRealm(results);
-
-        Timber.d("getCache, size: " + cache.size() + ", Filters - newer than "
-                + newerThanId + ", favorites " + onlyFavorites + ", contains " + contains);
 
         realm.close();
         return cache;

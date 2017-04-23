@@ -129,7 +129,6 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
 
     @Override
     public void changeLanguagesSelected(int from, int to) {
-        Timber.d("changeLanguagesSelected: from " + from + " to " + to);
         mSpinFrom.setSelection(from);
         mSpinTo.setSelection(to);
     }
@@ -164,7 +163,6 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
 
     @Override
     public void fillTextFields(String from, String to, boolean isFavorite) {
-        Timber.d("fillTextFields; from: " + from + "; to: " + to);
         mEditText.setText(from);
         mTextViewResult.setText(to);
         mTextViewResult.setVisibility(View.VISIBLE);

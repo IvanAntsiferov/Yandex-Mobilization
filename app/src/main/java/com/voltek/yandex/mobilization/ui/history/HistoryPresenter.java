@@ -17,8 +17,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
-
 @InjectViewState
 public class HistoryPresenter extends MvpPresenter<HistoryView> {
 
@@ -111,7 +109,6 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
         getViewState().hideEmpty();
         mItems.clear();
         mItems = mTranslations.getHistory(-1, mFilterFavorite, mSearchQuery);
-        Timber.d("loadData, size " + mItems.size());
         if (mItems.isEmpty()) {
             mLastId = -1;
             chooseError();

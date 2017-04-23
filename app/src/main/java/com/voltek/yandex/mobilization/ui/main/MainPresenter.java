@@ -8,8 +8,6 @@ import com.voltek.yandex.mobilization.TranslatorApp;
 import com.voltek.yandex.mobilization.navigation.command.CommandReplaceFragment;
 import com.voltek.yandex.mobilization.navigation.proxy.RouterBus;
 
-import timber.log.Timber;
-
 @InjectViewState
 public class MainPresenter extends MvpPresenter<MainView> {
 
@@ -28,7 +26,6 @@ public class MainPresenter extends MvpPresenter<MainView> {
     @Override
     public void attachView(MainView view) {
         super.attachView(view);
-        Timber.d("attachView");
         getViewState().attachInputListeners();
         if (mCurrentFragmentId > 0) {
             getViewState().selectFragmentId(mCurrentFragmentId);
@@ -39,7 +36,6 @@ public class MainPresenter extends MvpPresenter<MainView> {
     @Override
     public void detachView(MainView view) {
         super.detachView(view);
-        Timber.d("detachView");
         getViewState().detachInputListeners();
     }
 
@@ -49,8 +45,6 @@ public class MainPresenter extends MvpPresenter<MainView> {
         mCurrentFragmentIndex = menuItem.getOrder();
         mCurrentFragmentId = menuItem.getItemId();
         mRouter.execute(new CommandReplaceFragment(mCurrentFragmentIndex, mPreviousFragmentIndex));
-        Timber.d("bottomNavigationClick, index: " + mCurrentFragmentIndex);
-        Timber.d("bottomNavigationClick, id" + menuItem.getItemId());
     }
 
     // Private logic
