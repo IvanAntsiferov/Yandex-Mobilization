@@ -8,6 +8,7 @@ import com.voltek.yandex.mobilization.BuildConfig;
 import com.voltek.yandex.mobilization.R;
 import com.voltek.yandex.mobilization.TranslatorApp;
 import com.voltek.yandex.mobilization.data.DataProvider;
+import com.voltek.yandex.mobilization.entity.Mapper;
 import com.voltek.yandex.mobilization.entity.general.Translation;
 import com.voltek.yandex.mobilization.data.networking.YandexTranslateAPI;
 import com.voltek.yandex.mobilization.entity.network.TranslateResponse;
@@ -43,9 +44,14 @@ public class TranslationRepository implements DataProvider.Translations {
                     (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 
+            String encodedString = Mapper.stringUrlEncode(text);
+            if (encodedString == null) {
+                emitter.onError(new Exception(mContext.getString(R.string.error_cant_translate)));
+            }
+
             if (networkInfo != null && networkInfo.isConnected()) {
                 Response<TranslateResponse> response =
-                        mApi.translate(BuildConfig.API_KEY, text, langs).execute();
+                        mApi.translate(BuildConfig.API_KEY, encodedString, langs).execute();
 
                 if (response.isSuccessful()) {
                     Timber.d("translateApiRequest: " + response.body().text.toString());

@@ -11,6 +11,6 @@ public interface YandexTranslateAPI {
     @POST("/api/v1.5/tr.json/translate")
     Call<TranslateResponse> translate(
             @Query("key") String apiKey,
-            @Query("text") String text,
+            @Query(value = "text", encoded = true) String text,
             @Query("lang") String langToLang);
 }

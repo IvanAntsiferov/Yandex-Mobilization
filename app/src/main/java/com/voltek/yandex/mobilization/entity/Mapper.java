@@ -2,12 +2,15 @@ package com.voltek.yandex.mobilization.entity;
 
 import com.voltek.yandex.mobilization.entity.data.Language;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * Static class, that handles data conversion.
- * Get used by interactor layer to transform repository data model to presenter accepted model.
  */
 public final class Mapper {
 
@@ -30,5 +33,14 @@ public final class Mapper {
      */
     public static String makeTranslationDirectionString(String from, String to) {
         return from + "-" + to;
+    }
+
+    public static String stringUrlEncode(String text) {
+        try {
+            return URLEncoder.encode(text, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Timber.e(e);
+            return null;
+        }
     }
 }
