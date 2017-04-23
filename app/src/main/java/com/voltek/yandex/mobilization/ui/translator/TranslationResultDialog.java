@@ -9,15 +9,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.voltek.yandex.mobilization.R;
+import com.voltek.yandex.mobilization.ui.BaseDialogFragment;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
-public class TranslationResultDialog extends DialogFragment {
+public class TranslationResultDialog extends BaseDialogFragment {
 
     private static final String ARG_CONTENT = "ARG_CONTENT";
 
-    private Unbinder mUnbinder;
+    @BindView(R.id.tv_result)
+    TextView mTextViewResult;
 
     public TranslationResultDialog() {}
 
@@ -31,20 +33,12 @@ public class TranslationResultDialog extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.dialog_traslation_result, container);
+        return inflater.inflate(R.layout.dialog_translation_result, container);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        mUnbinder = ButterKnife.bind(this, view);
         String content = getArguments().getString(ARG_CONTENT);
-        TextView contentView = ButterKnife.findById(view, R.id.tv_result);
-        contentView.setText(content);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mUnbinder.unbind();
+        mTextViewResult.setText(content);
     }
 }

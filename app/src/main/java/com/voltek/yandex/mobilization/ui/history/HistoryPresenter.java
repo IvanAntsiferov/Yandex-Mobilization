@@ -90,7 +90,8 @@ public class HistoryPresenter extends MvpPresenter<HistoryView> {
     }
 
     public void onItemClick(Translation translation) {
-        // TODO open dialog with details
+        // TODO fix langs
+        getViewState().openTranslationInDialog(translation.getFromText(), translation.getToText(), "", "");
     }
 
     public void onItemFavoriteClick(Translation translation) {

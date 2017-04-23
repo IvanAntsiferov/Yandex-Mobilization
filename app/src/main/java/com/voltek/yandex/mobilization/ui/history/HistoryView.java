@@ -34,4 +34,7 @@ public interface HistoryView extends BaseView {
 
     @StateStrategyType(SkipStrategy.class)
     void hideSoftKeyboard();
+
+    @StateStrategyType(SkipStrategy.class)
+    void openTranslationInDialog(String fromText, String toText, String fromLang, String toLang);
 }

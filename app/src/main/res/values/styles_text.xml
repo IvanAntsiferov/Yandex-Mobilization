@@ -31,6 +31,10 @@
         <item name="fontPath">fonts/Roboto-Light.ttf</item>
     </style>
 
+    <style name="Text.Medium.Bold">
+        <item name="fontPath">fonts/Roboto-Bold.ttf</item>
+    </style>
+
     <!-- Large -->
     <style name="Text.Large">
         <item name="android:textAppearance">?android:textAppearanceLarge</item>

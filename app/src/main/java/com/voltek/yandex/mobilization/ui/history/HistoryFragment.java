@@ -3,6 +3,7 @@ package com.voltek.yandex.mobilization.ui.history;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -185,5 +186,14 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
         InputMethodManager imm =
                 (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mEditTextSearch.getWindowToken(), 0);
+    }
+
+    @Override
+    public void openTranslationInDialog(
+            String fromText, String toText, String fromLang, String toLang) {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        TranslationDetailsDialog dialog =
+                TranslationDetailsDialog.newInstance(fromText, toText, fromLang, toLang);
+        dialog.show(fm, "dialog_translation_details");
     }
 }
