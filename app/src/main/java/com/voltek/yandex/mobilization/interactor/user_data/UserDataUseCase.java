@@ -7,4 +7,6 @@ public interface UserDataUseCase {
     SelectedLanguages getSelectedLangs();
 
     void updateSelectedLangs(SelectedLanguages selectedLanguages);
+
+    boolean isFirstLaunch();
 }

@@ -41,6 +41,7 @@ ext {
     moxyVersion = '1.5.1'
     hawkVersion = '2.0.1'
     calligraphyVersion = '2.2.0'
+    appIntroVersion = '4.1.0'
 
     espressoVersion = '2.2.2'
     junitVersion = '4.12'
@@ -96,4 +97,7 @@ dependencies {
 
     // Fonts
     compile "uk.co.chrisjenx:calligraphy:${calligraphyVersion}"
+
+    // App intro
+    compile "com.github.paolorotolo:appintro:${appIntroVersion}"
 }

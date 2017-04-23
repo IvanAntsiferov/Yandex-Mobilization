@@ -31,4 +31,9 @@ public class UserDataInteractor implements com.voltek.yandex.mobilization.intera
     public void updateSelectedLangs(SelectedLanguages selectedLanguages) {
         mUserDataRepo.putValue(UserDataKey.SELECTED_LANGUAGES, selectedLanguages);
     }
+
+    @Override
+    public boolean isFirstLaunch() {
+        return (boolean) mUserDataRepo.getValue(UserDataKey.IS_FIRST_LAUNCH, true);
+    }
 }
