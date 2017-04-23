@@ -94,7 +94,6 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
     }
 
     public void inputChanges(String newValue) {
-        // TODO сделать поиск в реальном времени
         mInput = newValue;
         getViewState().hideMessage();
     }

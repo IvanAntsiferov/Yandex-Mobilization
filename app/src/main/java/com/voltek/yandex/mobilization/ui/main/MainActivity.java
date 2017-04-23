@@ -17,7 +17,7 @@ import com.voltek.yandex.mobilization.navigation.command.CommandReplaceFragment;
 import com.voltek.yandex.mobilization.navigation.proxy.Navigator;
 import com.voltek.yandex.mobilization.navigation.proxy.NavigatorCommand;
 import com.voltek.yandex.mobilization.ui.history.HistoryFragment;
-import com.voltek.yandex.mobilization.ui.settings.SettingsFragment;
+import com.voltek.yandex.mobilization.ui.info.InfoFragment;
 import com.voltek.yandex.mobilization.ui.translator.TranslatorFragment;
 
 import butterknife.BindView;
@@ -109,7 +109,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
         if (index == 1) {
             fragment = new HistoryFragment();
         } else if (index == 2) {
-            fragment = new SettingsFragment();
+            fragment = new InfoFragment();
         } else {
             fragment = new TranslatorFragment();
         }

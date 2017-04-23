@@ -19,11 +19,11 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_info"
         android:enabled="true"
-        android:icon="@drawable/ic_settings_24dp"
+        android:icon="@drawable/ic_info_outline_24dp"
         android:orderInCategory="2"
-        android:title="@string/nb_settings"
+        android:title="@string/nb_info"
         app:showAsAction="ifRoom" />
 
 </menu>

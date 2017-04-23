@@ -1,4 +1,4 @@
-package com.voltek.yandex.mobilization.ui.settings;
+package com.voltek.yandex.mobilization.ui.info;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,17 +11,16 @@ import com.arellomobile.mvp.presenter.PresenterType;
 import com.voltek.yandex.mobilization.R;
 import com.voltek.yandex.mobilization.ui.BaseFragment;
 
-// TODO сделать экран настроек: Функция мгновенного перевода. О приложении.
-public class SettingsFragment extends BaseFragment implements SettingsView {
+public class InfoFragment extends BaseFragment implements InfoView {
 
-    @InjectPresenter(type = PresenterType.GLOBAL, tag = "settings")
-    SettingsPresenter mPresenter;
+    @InjectPresenter(type = PresenterType.GLOBAL, tag = "info")
+    InfoPresenter mPresenter;
 
     // Lifecycle
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        return inflater.inflate(R.layout.fragment_info, container, false);
     }
 
     @Override

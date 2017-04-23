@@ -6,7 +6,7 @@
     <!-- Bottom navigation bar -->
     <string name="nb_translator">Переводчик</string>
     <string name="nb_history">История</string>
-    <string name="nb_settings">Настройки</string>
+    <string name="nb_info">Информация</string>
 
     <!-- Translation fragment -->
     <string name="hint_translator_input">Введите текст</string>
@@ -36,5 +36,8 @@
     <string name="dlg_wipe_cache_warning">Вы уверены, что хотите очистить историю переводов?</string>
 
     <string name="hint_history_search">Найти</string>
+
+    <!-- Ifo fragment -->
+    <string name="inf_about_app_header">О приложении</string>
 
 </resources>
