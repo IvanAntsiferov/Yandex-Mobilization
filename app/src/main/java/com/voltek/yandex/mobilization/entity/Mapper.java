@@ -37,6 +37,10 @@ public final class Mapper {
         return from + "-" + to;
     }
 
+    /**
+     * Encodes text, that will be send in POST request
+     * by {@link com.voltek.yandex.mobilization.data.repository.TranslationRepository}
+     */
     @Nullable
     public static String stringUrlEncode(String text) {
         try {

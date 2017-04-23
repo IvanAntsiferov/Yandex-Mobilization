@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.PresenterType;
-import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.voltek.yandex.mobilization.R;
 import com.voltek.yandex.mobilization.ui.BaseDialogFragment;
 
@@ -25,15 +24,6 @@ public class TranslationDetailsDialog extends BaseDialogFragment implements Tran
     @InjectPresenter(type = PresenterType.LOCAL, tag = "TranslationDetailsDialog")
     TranslationDetailsDialogPresenter mPresenter;
 
-    @ProvidePresenter(type = PresenterType.LOCAL, tag = "TranslationDetailsDialog")
-    TranslationDetailsDialogPresenter providePresenter() {
-        String fromText = getArguments().getString(ARG_FROM_TEXT);
-        String toText = getArguments().getString(ARG_TO_TEXT);
-        String fromLang = getArguments().getString(ARG_FROM_LANG);
-        String toLang = getArguments().getString(ARG_TO_LANG);
-        return new TranslationDetailsDialogPresenter(fromText, toText, fromLang, toLang);
-    }
-
     @BindView(R.id.tv_from)
     TextView mTvFromText;
     @BindView(R.id.tv_to)
@@ -43,8 +33,7 @@ public class TranslationDetailsDialog extends BaseDialogFragment implements Tran
     @BindView(R.id.tv_lang_to)
     TextView mTvLangTo;
 
-    public TranslationDetailsDialog() {
-    }
+    public TranslationDetailsDialog() {}
 
     public static TranslationDetailsDialog newInstance(
             String fromText, String toText, String fromLang, String toLang) {
@@ -84,9 +73,4 @@ public class TranslationDetailsDialog extends BaseDialogFragment implements Tran
 
     @Override
     public void detachInputListeners() {}
-
-    @Override
-    public void showContent(String fromText, String toText, String fromLang, String toLang) {
-
-    }
 }

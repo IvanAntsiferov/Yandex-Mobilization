@@ -15,7 +15,7 @@ import dagger.Component;
                 NetworkModule.class
         }
 )
-public interface NetworkComponent {
+public interface RepositoryComponent {
 
     void inject(TranslationRepository repository);
 }

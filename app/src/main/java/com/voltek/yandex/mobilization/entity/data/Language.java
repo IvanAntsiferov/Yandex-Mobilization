@@ -1,5 +1,8 @@
 package com.voltek.yandex.mobilization.entity.data;
 
+/**
+ * Holds language name and code, e.g. name="russian" code="ru"
+ */
 public class Language {
 
     private String name;

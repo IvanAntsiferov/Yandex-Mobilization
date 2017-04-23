@@ -29,8 +29,8 @@
             android:background="@android:color/white"
             android:elevation="3dp"
             android:orientation="horizontal"
-            android:paddingLeft="@dimen/translator_fragment_text_padding"
-            android:paddingRight="@dimen/translator_fragment_text_padding">
+            android:paddingLeft="@dimen/generic_margin_padding"
+            android:paddingRight="@dimen/generic_margin_padding">
 
             <ImageButton
                 android:id="@+id/ib_search"

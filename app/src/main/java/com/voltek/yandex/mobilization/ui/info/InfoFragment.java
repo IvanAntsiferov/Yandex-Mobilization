@@ -42,7 +42,6 @@ public class InfoFragment extends BaseFragment implements InfoView {
         mTvDeveloper.setClickable(true);
         mTvYandexApi.setMovementMethod(LinkMovementMethod.getInstance());
         mTvYandexApi.setClickable(true);
-
     }
 
     // View interface

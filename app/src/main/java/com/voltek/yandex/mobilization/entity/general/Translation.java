@@ -5,7 +5,7 @@ import io.realm.annotations.PrimaryKey;
 
 /**
  * Common class.
- * Get used by repository and presenter without transformation.
+ * Get used by repository, interactor and presenter without transformation.
  */
 public class Translation extends RealmObject {
 

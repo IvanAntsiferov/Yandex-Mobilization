@@ -20,6 +20,17 @@ public class LanguagesRepository implements DataProvider.Languages {
         return hardcodedLanguages().get(index).getCode();
     }
 
+    @Override
+    @Nullable
+    public String getLangNameByCode(String code) {
+        for (Language language : hardcodedLanguages()) {
+            if (language.getCode().equals(code)) {
+                return language.getName();
+            }
+        }
+        return null;
+    }
+
     private List<Language> hardcodedLanguages() {
         List<Language> languages = new ArrayList<>();
 
@@ -115,16 +126,5 @@ public class LanguagesRepository implements DataProvider.Languages {
         languages.add(new Language("японский", "ja"));
 
         return languages;
-    }
-
-    @Override
-    @Nullable
-    public String getLangNameByCode(String code) {
-        for (Language language : hardcodedLanguages()) {
-            if (language.getCode().equals(code)) {
-                return language.getName();
-            }
-        }
-        return null;
     }
 }

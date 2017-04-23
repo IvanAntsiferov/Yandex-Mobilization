@@ -11,7 +11,7 @@ import timber.log.Timber;
  * Controls app navigation.
  * RouterBinder used to bind activity with implemented Navigator interface,
  * RouterBus used to queue navigation events from presenters.
- * (In this case, queue contains one last command)
+ * (In this case, queue contains only one last command)
  */
 public class RouterHolder implements RouterBus, RouterBinder {
 

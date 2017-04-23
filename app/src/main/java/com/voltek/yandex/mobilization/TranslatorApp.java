@@ -22,7 +22,7 @@ public class TranslatorApp extends Application {
 
     private static PresenterComponent sPresenterComponent;
     private static InteractorComponent sInteractorComponent;
-    private static NetworkComponent sNetworkComponent;
+    private static RepositoryComponent sRepositoryComponent;
 
     @Override
     public void onCreate() {
@@ -45,7 +45,7 @@ public class TranslatorApp extends Application {
                 .repositoryModule(repositoryModule)
                 .build();
 
-        sNetworkComponent = DaggerNetworkComponent.builder()
+        sRepositoryComponent = DaggerRepositoryComponent.builder()
                 .appModule(appModule)
                 .networkModule(networkModule)
                 .build();
@@ -77,7 +77,7 @@ public class TranslatorApp extends Application {
         return sInteractorComponent;
     }
 
-    public static NetworkComponent getNetworkComponent() {
-        return sNetworkComponent;
+    public static RepositoryComponent getNetworkComponent() {
+        return sRepositoryComponent;
     }
 }

@@ -16,6 +16,7 @@ import com.voltek.yandex.mobilization.TranslatorApp;
 import com.voltek.yandex.mobilization.navigation.command.CommandReplaceFragment;
 import com.voltek.yandex.mobilization.navigation.proxy.Navigator;
 import com.voltek.yandex.mobilization.navigation.proxy.NavigatorCommand;
+import com.voltek.yandex.mobilization.ui.BaseActivity;
 import com.voltek.yandex.mobilization.ui.history.HistoryFragment;
 import com.voltek.yandex.mobilization.ui.info.InfoFragment;
 import com.voltek.yandex.mobilization.ui.translator.TranslatorFragment;
@@ -27,15 +28,13 @@ import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends MvpAppCompatActivity implements MainView, Navigator {
+public class MainActivity extends BaseActivity implements MainView {
 
     @InjectPresenter(type = PresenterType.GLOBAL, tag = "main")
     MainPresenter mPresenter;
 
     @BindView(R.id.bottom_navigation)
     BottomNavigationView mBottomNav;
-
-    private CompositeDisposable mDisposable = new CompositeDisposable();
 
     // Lifecycle
     @Override
@@ -46,31 +45,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
         ButterKnife.bind(this);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Timber.d("onResume");
-        TranslatorApp.getRouterBinder().setNavigator(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Timber.d("onPause");
-        TranslatorApp.getRouterBinder().removeNavigator();
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
     // View interface related
     @Override
     public void attachInputListeners() {
         Timber.d("attachInputListeners");
         Disposable bottomNavigation = RxBottomNavigationView.itemSelections(mBottomNav)
-                .skip(1) // Skipping first emitted element because of auto select of position 0
+                .skip(1) // Skipping first emitted element because of auto select position 0
                 .subscribe(menuItem -> mPresenter.bottomNavigationClick(menuItem), Timber::e);
 
         mDisposable.addAll(bottomNavigation);

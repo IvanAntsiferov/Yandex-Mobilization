@@ -1,8 +1,9 @@
 package com.voltek.yandex.mobilization.entity.presentation;
 
 /**
- * Used in translator presenter on view attach to set correct languages.
- * Stored in user data repo.
+ * Used in {@link com.voltek.yandex.mobilization.ui.translator.TranslatorPresenter}
+ * on view attach to set correct languages.
+ * Stored in {@link com.voltek.yandex.mobilization.data.repository.UserDataRepository}
  */
 public class SelectedLanguages {
 

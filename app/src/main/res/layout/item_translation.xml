@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="@dimen/translator_fragment_text_padding">
+    android:padding="@dimen/generic_margin_padding">
 
     <ImageButton
         android:id="@+id/ib_favorite"
@@ -19,8 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="?selectableItemBackground"
-        android:paddingLeft="@dimen/translator_fragment_text_padding"
-        android:paddingRight="@dimen/translator_fragment_text_padding">
+        android:paddingLeft="@dimen/generic_margin_padding"
+        android:paddingRight="@dimen/generic_margin_padding">
 
         <TextView
             android:id="@+id/tv_from"

@@ -39,7 +39,7 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     TranslatorPresenter mPresenter;
 
     @BindView(R.id.ib_swap)
-    ImageButton mSwapLangs;
+    ImageButton mButtonSwapLangs;
     @BindView(R.id.spin_from)
     Spinner mSpinFrom;
     @BindView(R.id.spin_to)
@@ -47,11 +47,11 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     @BindView(R.id.et_translate)
     EditText mEditText;
     @BindView(R.id.tv_result)
-    TextView mResult;
+    TextView mTextViewResult;
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
-    @BindView(R.id.tv_error)
-    TextView mErrorView;
+    @BindView(R.id.tv_message)
+    TextView mTextView;
     @BindView(R.id.ib_favorite)
     ImageButton mButtonFavorite;
     @BindView(R.id.ib_fullscreen)
@@ -71,14 +71,14 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mErrorView.setMovementMethod(LinkMovementMethod.getInstance());
-        mErrorView.setClickable(true);
+        mTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        mTextView.setClickable(true);
     }
 
     // View interface
     @Override
     public void attachInputListeners() {
-        Disposable swapLangsButton = RxView.clicks(mSwapLangs)
+        Disposable swapLangsButton = RxView.clicks(mButtonSwapLangs)
                 .subscribe(o -> mPresenter.swapLanguages(), Timber::e);
 
         Disposable spinnerFrom = RxAdapterView.itemSelections(mSpinFrom)
@@ -136,8 +136,8 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
 
     @Override
     public void showTranslationResult(String result, boolean isFavorite) {
-        mResult.setText(result);
-        mResult.setVisibility(View.VISIBLE);
+        mTextViewResult.setText(result);
+        mTextViewResult.setVisibility(View.VISIBLE);
         setFavoriteIcon(isFavorite);
     }
 
@@ -153,27 +153,27 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
 
     @Override
     public void showMessage(String message) {
-        mErrorView.setText(Html.fromHtml(message));
-        mErrorView.setVisibility(View.VISIBLE);
+        mTextView.setText(Html.fromHtml(message));
+        mTextView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideMessage() {
-        mErrorView.setVisibility(View.INVISIBLE);
+        mTextView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void fillTextFields(String from, String to, boolean isFavorite) {
         Timber.d("fillTextFields; from: " + from + "; to: " + to);
         mEditText.setText(from);
-        mResult.setText(to);
-        mResult.setVisibility(View.VISIBLE);
+        mTextViewResult.setText(to);
+        mTextViewResult.setVisibility(View.VISIBLE);
         setFavoriteIcon(isFavorite);
     }
 
     @Override
     public void hideResults() {
-        mResult.setVisibility(GONE);
+        mTextViewResult.setVisibility(GONE);
         setFavoriteIcon(false);
     }
 

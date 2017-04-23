@@ -2,6 +2,6 @@
 <resources>
 
     <dimen name="translator_fragment_main_block_height">160dp</dimen>
-    <dimen name="translator_fragment_text_padding">8dp</dimen>
+    <dimen name="generic_margin_padding">8dp</dimen>
 
 </resources>

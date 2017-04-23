@@ -45,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="@dimen/translator_fragment_text_padding">
+            android:padding="@dimen/generic_margin_padding">
 
             <com.voltek.yandex.mobilization.ui.MultilineEditText
                 android:id="@+id/et_translate"
@@ -56,7 +56,7 @@
                 android:gravity="center"
                 android:hint="@string/hint_translator_input"
                 android:imeOptions="actionDone"
-                android:lines="@integer/translator_fragment_result_max_lines"
+                android:lines="@integer/translator_fragment_et_max_lines"
                 android:maxLength="9999"
                 android:paddingBottom="24dp"
                 android:scrollbars="vertical" />
@@ -91,7 +91,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="@dimen/translator_fragment_text_padding">
+            android:padding="@dimen/generic_margin_padding">
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -108,7 +108,7 @@
                 android:layout_height="match_parent"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:maxLines="@integer/translator_fragment_result_max_lines"
+                android:maxLines="@integer/translator_fragment_et_max_lines"
                 android:paddingBottom="24dp"
                 android:textColor="#616161"
                 android:visibility="invisible" />
@@ -140,12 +140,12 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@id/container_text"
-        android:layout_marginLeft="@dimen/translator_fragment_text_padding"
-        android:layout_marginRight="@dimen/translator_fragment_text_padding"
+        android:layout_marginLeft="@dimen/generic_margin_padding"
+        android:layout_marginRight="@dimen/generic_margin_padding"
         android:background="@android:color/darker_gray" />
 
     <TextView
-        android:id="@+id/tv_error"
+        android:id="@+id/tv_message"
         style="@style/Text.Small.Bolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="3"
-        android:padding="@dimen/translator_fragment_text_padding"
+        android:padding="@dimen/generic_margin_padding"
         android:textColor="@color/grey_md700"
         android:visibility="invisible" />
 

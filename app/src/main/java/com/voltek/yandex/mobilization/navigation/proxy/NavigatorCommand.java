@@ -2,7 +2,7 @@ package com.voltek.yandex.mobilization.navigation.proxy;
 
 /**
  * Base class for navigation commands. Used by classes, that implements Navigator interface,
- * to determine which type of command it receives.
+ * to determine which type of command was received.
  */
 public abstract class NavigatorCommand {
 

@@ -43,7 +43,7 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.rl_empty_state)
-    RelativeLayout mEmptyState;
+    RelativeLayout mEmptyStateLayout;
     @BindView(R.id.tv_empty)
     TextView mEmptyTextView;
     @BindView(R.id.ib_delete)
@@ -128,12 +128,12 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
     public void showEmpty(String message) {
         mAdapter.clear();
         mEmptyTextView.setText(message);
-        mEmptyState.setVisibility(View.VISIBLE);
+        mEmptyStateLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideEmpty() {
-        mEmptyState.setVisibility(View.GONE);
+        mEmptyStateLayout.setVisibility(View.GONE);
     }
 
     @Override

@@ -27,14 +27,14 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
 
     private Context mContext;
 
-    // For on item click listener
+    // On item click listener
     private PublishSubject<Translation> mOnItemClickSubject = PublishSubject.create();
 
     public Observable<Translation> getClickedItem() {
         return mOnItemClickSubject;
     }
 
-    // For favorite button click listener
+    // Davorite button click listener
     private PublishSubject<Translation> mOnFavoriteClickSubject = PublishSubject.create();
 
     public Observable<Translation> getFavoriteClickedItem() {

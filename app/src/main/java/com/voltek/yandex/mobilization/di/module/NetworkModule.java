@@ -38,7 +38,6 @@ public class NetworkModule {
     }
 
     @Provides
-    @Singleton
     YandexTranslateAPI provideApi(Retrofit retrofit) {
         return retrofit.create(YandexTranslateAPI.class);
     }
