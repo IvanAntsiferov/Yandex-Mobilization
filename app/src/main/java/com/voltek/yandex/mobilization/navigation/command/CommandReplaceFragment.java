@@ -6,19 +6,27 @@ public class CommandReplaceFragment extends NavigatorCommand {
 
     public static final int id = 10;
 
-    private int fragmentIndex;
+    private int currentIndex;
 
-    public CommandReplaceFragment(int fragmentIndex) {
+    private int previousIndex;
+
+    public CommandReplaceFragment(int currentIndex, int previousIndex) {
         super(id);
-        this.fragmentIndex = fragmentIndex;
+        this.currentIndex = currentIndex;
+        this.previousIndex = previousIndex;
     }
 
-    public CommandReplaceFragment(int fragmentIndex, boolean addToQueue) {
+    public CommandReplaceFragment(boolean addToQueue, int currentIndex, int previousIndex) {
         super(id, addToQueue);
-        this.fragmentIndex = fragmentIndex;
+        this.currentIndex = currentIndex;
+        this.previousIndex = previousIndex;
     }
 
-    public int getFragmentIndex() {
-        return fragmentIndex;
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public int getPreviousIndex() {
+        return previousIndex;
     }
 }

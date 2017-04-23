@@ -17,6 +17,7 @@ import com.voltek.yandex.mobilization.navigation.command.CommandReplaceFragment;
 import com.voltek.yandex.mobilization.navigation.proxy.Navigator;
 import com.voltek.yandex.mobilization.navigation.proxy.NavigatorCommand;
 import com.voltek.yandex.mobilization.ui.history.HistoryFragment;
+import com.voltek.yandex.mobilization.ui.settings.SettingsFragment;
 import com.voltek.yandex.mobilization.ui.translator.TranslatorFragment;
 
 import butterknife.BindView;
@@ -92,26 +93,45 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
     public boolean executeCommand(NavigatorCommand command) {
         if (command instanceof CommandReplaceFragment) {
             CommandReplaceFragment c = (CommandReplaceFragment) command;
-            replaceFragment(c.getFragmentIndex());
+            replaceFragment(c.getCurrentIndex(), c.getPreviousIndex());
             return true;
         } else {
             return false;
         }
     }
 
-    private void replaceFragment(int index) {
+    private void replaceFragment(int index, int previousIndex) {
         Timber.d("replaceFragment, index: " + index);
         Fragment fragment;
         FragmentTransaction fts = getSupportFragmentManager().beginTransaction();
 
+        // Choose fragment
         if (index == 1) {
-            fts.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
             fragment = new HistoryFragment();
+        } else if (index == 2) {
+            fragment = new SettingsFragment();
         } else {
-            fts.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
             fragment = new TranslatorFragment();
         }
 
+        // Choose animations
+        if (index == previousIndex) {
+            // In this case, user has returned to app after pausing it,
+            // so don't need to use slide animations.
+            fts.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        } else if (index == 1) {
+            if (previousIndex == 0) {
+                fts.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+            } else {
+                fts.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        } else if (index == 2) {
+            fts.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+        } else {
+            fts.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+        }
+
+        // Execute transaction
         fts.replace(R.id.fragment_container, fragment).commit();
     }
 }

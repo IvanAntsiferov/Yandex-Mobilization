@@ -18,6 +18,8 @@ public class MainPresenter extends MvpPresenter<MainView> {
     private int mCurrentFragmentIndex = 0;
     private int mCurrentFragmentId = -1;
 
+    private int mPreviousFragmentIndex = 0;
+
     public MainPresenter() {
         mRouter = TranslatorApp.getRouterBus();
     }
@@ -31,7 +33,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
         if (mCurrentFragmentId > 0) {
             getViewState().selectFragmentId(mCurrentFragmentId);
         }
-        mRouter.execute(new CommandReplaceFragment(mCurrentFragmentIndex));
+        mRouter.execute(new CommandReplaceFragment(mCurrentFragmentIndex, mPreviousFragmentIndex));
     }
 
     @Override
@@ -43,9 +45,10 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     // View notifications
     public void bottomNavigationClick(MenuItem menuItem) {
+        mPreviousFragmentIndex = mCurrentFragmentIndex;
         mCurrentFragmentIndex = menuItem.getOrder();
         mCurrentFragmentId = menuItem.getItemId();
-        mRouter.execute(new CommandReplaceFragment(mCurrentFragmentIndex));
+        mRouter.execute(new CommandReplaceFragment(mCurrentFragmentIndex, mPreviousFragmentIndex));
         Timber.d("bottomNavigationClick, index: " + mCurrentFragmentIndex);
         Timber.d("bottomNavigationClick, id" + menuItem.getItemId());
     }

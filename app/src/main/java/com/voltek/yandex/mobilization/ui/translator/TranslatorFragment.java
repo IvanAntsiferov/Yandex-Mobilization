@@ -65,11 +65,6 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
         return inflater.inflate(R.layout.fragment_translator, container, false);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
     // View interface
     @Override
     public void attachInputListeners() {

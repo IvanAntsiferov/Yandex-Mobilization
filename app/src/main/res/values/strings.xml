@@ -6,6 +6,7 @@
     <!-- Bottom navigation bar -->
     <string name="nb_translator">Переводчик</string>
     <string name="nb_history">История</string>
+    <string name="nb_settings">Настройки</string>
 
     <!-- Translation fragment -->
     <string name="hint_translator_input">Введите текст</string>

@@ -78,11 +78,6 @@ public class HistoryFragment extends BaseFragment implements HistoryView {
         mRecyclerView.addItemDecoration(divider);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
     // View interface
     @Override
     public void attachInputListeners() {
