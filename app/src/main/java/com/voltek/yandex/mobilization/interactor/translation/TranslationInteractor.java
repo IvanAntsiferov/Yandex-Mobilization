@@ -27,8 +27,16 @@ public class TranslationInteractor implements com.voltek.yandex.mobilization.int
     @Override
     public Observable<Translation> translate(String text, int fromId, int toId) {
         return Observable.create(emitter -> {
-            String from = mLangsRepo.getLangCodeByIndex(fromId);
-            String to = mLangsRepo.getLangCodeByIndex(toId);
+            String from;
+            String to;
+            try {
+                from = mLangsRepo.getLangCodeByIndex(fromId);
+                to = mLangsRepo.getLangCodeByIndex(toId);
+            } catch (IndexOutOfBoundsException e) {
+                Timber.e(e);
+                from = "";
+                to = "";
+            }
             String translationDirection = Mapper.makeTranslationDirectionString(from, to);
 
             Translation fromCache =

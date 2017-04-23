@@ -24,7 +24,7 @@ public final class DataProvider {
         /**
          * @return lang code by provided index, e.g. "en", "de", "fr"
          */
-        String getLangCodeByIndex(int index);
+        String getLangCodeByIndex(int index) throws IndexOutOfBoundsException;
 
         /**
          * @param code "en", "de", "fr"
