@@ -140,6 +140,7 @@ public class TranslatorPresenter extends MvpPresenter<TranslatorView> {
                     mOutput = translation.getToText();
                     mIsFavorite = translation.getFavorite();
                     getViewState().showTranslationResult(mOutput, mIsFavorite);
+                    getViewState().showMessage(mContext.getString(R.string.msg_translated_by_yandex));
                 }, throwable -> getViewState().showMessage(throwable.getMessage()));
     }
 

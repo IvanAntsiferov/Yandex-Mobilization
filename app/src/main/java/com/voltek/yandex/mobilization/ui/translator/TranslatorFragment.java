@@ -3,6 +3,8 @@ package com.voltek.yandex.mobilization.ui.translator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +65,13 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_translator, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mErrorView.setMovementMethod(LinkMovementMethod.getInstance());
+        mErrorView.setClickable(true);
     }
 
     // View interface
@@ -143,7 +152,7 @@ public class TranslatorFragment extends BaseFragment implements TranslatorView {
 
     @Override
     public void showMessage(String message) {
-        mErrorView.setText(message);
+        mErrorView.setText(Html.fromHtml(message));
         mErrorView.setVisibility(View.VISIBLE);
     }
 

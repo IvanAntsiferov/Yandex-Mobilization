@@ -25,6 +25,7 @@
     <string name="error_nothing_to_favorite">Добавить в закладки можно только успешный перевод</string>
     <string name="msg_added_to_favorites">Перевод добавлен в закладки</string>
     <string name="msg_removed_from_favorites">Перевод удален из закладок</string>
+    <string name="msg_translated_by_yandex"><![CDATA[Переведено сервисом <a href="https://translate.yandex.ru">«Яндекс.Переводчик»</a>]]></string>
 
     <!-- History fragment -->
     <string name="error_no_history">У Вас пока нет истории переводов</string>
