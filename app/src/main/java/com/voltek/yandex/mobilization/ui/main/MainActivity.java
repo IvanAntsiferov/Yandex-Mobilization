@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -101,17 +102,16 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
     private void replaceFragment(int index) {
         Timber.d("replaceFragment, index: " + index);
         Fragment fragment;
+        FragmentTransaction fts = getSupportFragmentManager().beginTransaction();
 
         if (index == 1) {
+            fts.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
             fragment = new HistoryFragment();
         } else {
+            fts.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
             fragment = new TranslatorFragment();
         }
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-                .replace(R.id.fragment_container, fragment)
-                .commit();
+        fts.replace(R.id.fragment_container, fragment).commit();
     }
 }
